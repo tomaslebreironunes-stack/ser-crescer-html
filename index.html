@@ -723,10 +723,11 @@
       <div class="relative z-10 flex flex-col justify-between bg-bark px-8 md:px-16 pt-32 pb-12 lg:pt-36 lg:pb-16">
         <div>
           <p class="font-body text-[11px] font-700 tracking-[0.2em] uppercase text-clay mb-10">Babysitting & Ateliers · Tarei, Sta. Maria da Feira</p>
-          <h1 class="font-display text-cream leading-[0.92] mb-8">
-            <span class="block text-[clamp(5rem,12vw,9rem)] italic font-400">Ser</span>
-            <span class="block text-[clamp(2.5rem,5vw,4rem)] font-600 tracking-tight">é crescer</span>
-            <span class="block text-[clamp(2.5rem,5vw,4rem)] font-600 tracking-tight text-clay">na aldeia.</span>
+          <h1 class="font-display text-cream leading-[0.88] mb-8">
+            <span class="block text-[clamp(6rem,13vw,10.5rem)] font-700 tracking-[-0.03em] leading-none">SER</span>
+            <span class="block text-[clamp(1.3rem,2.4vw,2rem)] font-500 italic text-clay tracking-wide mt-2 mb-5">Crescer na Aldeia</span>
+            <span class="block text-[clamp(2rem,4vw,3.2rem)] font-500 tracking-tight">é crescer</span>
+            <span class="block text-[clamp(2rem,4vw,3.2rem)] font-500 tracking-tight text-clay">na aldeia.</span>
           </h1>
           <p class="font-body text-cream/70 text-lg leading-relaxed max-w-md mb-12">
             Desenvolvimento integral da criança — na aldeia, na natureza, em comunidade. Cultivamos liberdade, criatividade, empatia e muito amor.
@@ -757,76 +758,20 @@
         </div>
       </div>
 
-      <!-- Hero mushroom scene (desktop) -->
-      <div class="relative hidden lg:block">
-        <div class="hero-video-scene absolute inset-0" aria-label="Vídeo SER Crescer na Aldeia">
-          <video class="hero-video" autoplay muted loop playsinline preload="auto">
-            <source src="a_c_d_df_ef_a_c_d_df_efmp_.mp4" type="video/mp4" />
+      <!-- Hero visual — desktop (vídeo contido + provérbio) -->
+      <div class=”relative hidden lg:flex flex-col items-center justify-center gap-6 bg-bark px-10 py-14”>
+        <!-- Vídeo card — contido, menor, com bordas arredondadas -->
+        <div class=”relative rounded-2xl overflow-hidden shadow-[0_28px_60px_rgba(44,26,14,0.55)] w-[78%] max-w-[310px] aspect-[3/4]”>
+          <video class=”absolute inset-0 w-full h-full object-cover” autoplay muted loop playsinline preload=”auto”>
+            <source src=”a_c_d_df_ef_a_c_d_df_efmp_.mp4” type=”video/mp4” />
           </video>
-          <aside class="hero-proverb-card" aria-label="Citação de Nelson Mandela">
-            <p class="hero-proverb-label">Nelson Mandela</p>
-            <p class="hero-proverb-text">“A educação é a ferramenta mais poderosa que podemos usar para mudar o mundo.”</p>
-            <p class="hero-proverb-source">Citação do PDF SER</p>
-          </aside>
         </div>
-        <div id="hero-mush-scene" class="mush-scene absolute inset-0" role="img" aria-label="Cogumelo SER inspirado no logotipo">
-          <!-- Sun -->
-          <div class="mush-sun"></div>
-          <!-- Clouds -->
-          <div class="mush-cloud"></div>
-          <div class="mush-cloud"></div>
-
-          <!-- Hills (3 layers, back to front) -->
-          <div class="mush-hills">
-            <svg viewBox="0 0 400 240" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- back hills -->
-              <path d="M 0 130 Q 60 90 130 110 Q 200 130 270 95 Q 340 65 400 100 L 400 240 L 0 240 Z" fill="#6BAA68" opacity="0.85"/>
-              <!-- mid hills -->
-              <path d="M 0 170 Q 70 140 150 158 Q 230 178 310 148 Q 360 130 400 150 L 400 240 L 0 240 Z" fill="#4F8A4F"/>
-              <!-- front hill -->
-              <path d="M 0 210 Q 100 188 200 200 Q 300 214 400 198 L 400 240 L 0 240 Z" fill="#3C6E3E"/>
-              <!-- tiny tree silhouettes -->
-              <g fill="#2D5832" opacity="0.6">
-                <ellipse cx="55" cy="158" rx="6" ry="10"/>
-                <ellipse cx="65" cy="155" rx="7" ry="12"/>
-                <ellipse cx="270" cy="150" rx="6" ry="10"/>
-                <ellipse cx="346" cy="142" rx="5" ry="9"/>
-              </g>
-            </svg>
-          </div>
-
-          <!-- Sparkles -->
-          <span class="mush-sparkle"><svg width="14" height="14" viewBox="0 0 24 24"><use href="#sparkle"/></svg></span>
-          <span class="mush-sparkle"><svg width="10" height="10" viewBox="0 0 24 24"><use href="#sparkle"/></svg></span>
-          <span class="mush-sparkle"><svg width="12" height="12" viewBox="0 0 24 24"><use href="#sparkle"/></svg></span>
-          <span class="mush-sparkle"><svg width="9" height="9" viewBox="0 0 24 24"><use href="#sparkle"/></svg></span>
-          <span class="mush-sparkle"><svg width="11" height="11" viewBox="0 0 24 24"><use href="#sparkle"/></svg></span>
-          <span class="mush-sparkle"><svg width="8" height="8" viewBox="0 0 24 24"><use href="#sparkle"/></svg></span>
-
-          <!-- Grass tufts -->
-          <div class="mush-grass left">
-            <span class="blade"></span><span class="blade"></span><span class="blade"></span>
-          </div>
-          <div class="mush-grass right">
-            <span class="blade"></span><span class="blade"></span><span class="blade"></span>
-          </div>
-
-          <!-- Ground shadow that compresses with hop -->
-          <div class="mush-shadow"></div>
-
-          <!-- The mushroom itself -->
-          <svg id="hero-mush" class="mush-big" viewBox="0 0 220 250" xmlns="http://www.w3.org/2000/svg">
-            <use href="#mush-logo-big"/>
-          </svg>
-
-          <p class="mush-hint">clica no cogumelo ✨</p>
-        </div>
-
-        <!-- Floating quote card (Nelson Mandela, do PDF do cliente) -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 bg-cream/95 backdrop-blur rounded-2xl px-6 py-5 shadow-2xl max-w-[260px] text-center z-10 border border-clay/10">
-          <span class="inline-flex mb-1"><svg width="28" height="32" viewBox="0 0 28 36"><use href="#mush-mini"/></svg></span>
-          <p class="font-display text-bark text-sm font-600 italic leading-snug">"A educação é a ferramenta mais poderosa que podemos usar para mudar o mundo."</p>
-          <p class="font-body text-clay text-[10px] tracking-widest uppercase mt-2 font-600">— Nelson Mandela</p>
+        <!-- Provérbio — visível e legível abaixo do vídeo -->
+        <div class=”bg-cream/10 border border-cream/15 rounded-xl px-5 py-4 text-center w-[78%] max-w-[310px]”>
+          <span class=”inline-flex mb-2”><svg width=”22” height=”28” viewBox=”0 0 28 36”><use href=”#mush-mini”/></svg></span>
+          <p class=”font-display text-cream/90 text-[clamp(0.82rem,1vw,1rem)] italic font-600 leading-snug”>”A educação é a ferramenta mais poderosa que podemos usar para mudar o mundo.”</p>
+          <p class=”font-body text-clay text-[10px] tracking-widest uppercase mt-2 font-600”>— Nelson Mandela</p>
+          <p class=”font-body text-cream/35 text-[9px] tracking-wider uppercase mt-1”>Citação do PDF SER</p>
         </div>
       </div>
 
