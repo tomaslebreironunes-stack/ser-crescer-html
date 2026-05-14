@@ -10,10 +10,12 @@
 
 **Nome oficial:** SER – Crescer na Aldeia  
 **Abreviação/Marca:** SER  
-**Tagline sugerida:** *"Onde as crianças crescem livres."*  
-**Tipo de projeto:** Infantário alternativo com foco em pedagogia baseada na natureza e comunidade  
-**Localização:** Portugal (aldeia / zona rural — localização exata a confirmar)  
-**Instagram:** [@ser.crescernaldeia](https://www.instagram.com/ser.crescernaldeia/) — 5.111 seguidores, 56 posts  
+**Símbolo da marca:** 🍄 **Cogumelo** (chapéu laranja-terracota com pontos brancos/creme, haste castanha) — implementado como `<symbol id="mush-mini">` e `<symbol id="mush-big">` no `index.html`. **Importante:** não usar emojis 🌿 / folhas — a marca é um cogumelo.  
+**Tagline IG:** *"Desenvolvimento integral da criança · na aldeia · na natureza"*  
+**Tagline do footer:** *"Cultivamos liberdade, criatividade, empatia, muito amor e legumes biológicos."*  
+**Tipo de projeto:** Babysitting & kids-sitting + ateliers de aprendizagem em comunidade. Alternativa ao ensino tradicional. **Não é creche/JI** — mas esta clarificação deve ficar **implícita** no copy, não explícita.  
+**Morada completa:** Rua Leiras do Monte, Tarei, 4520-719 Santa Maria da Feira, Portugal  
+**Instagram:** [@ser.crescernaldeia](https://www.instagram.com/ser.crescernaldeia/) — 6.226 seguidores, 80 posts (mai 2026)  
 **Threads:** [@ser.crescernaldeia](https://www.threads.com/@ser.crescernaldeia)  
 **Linktree:** [linktr.ee/ser.crescernaaldeia](https://linktr.ee/ser.crescernaaldeia)  
 
@@ -143,18 +145,35 @@ Este provérbio é o coração do projeto. A ideia de que educar não é respons
 
 ---
 
-## 7. Conteúdo a Confirmar com o Cliente
+## 7. Conteúdo Confirmado (via PDF "informações.SER.pdf", 2026-05-13)
 
-- [ ] Localização exata (aldeia / concelho)
-- [ ] Faixas etárias aceites
-- [ ] Horários de funcionamento
+- ✅ **Localização:** Tarei, Santa Maria da Feira
+- ✅ **Tipo de serviço:** NÃO é creche/JI — babysitting e kids-sitting + ateliers de aprendizagem em comunidade
+- ✅ **Idades:** a partir da aquisição de marcha (bebés acompanhados às sextas, 10h00–11h30, com ama/cuidador)
+- ✅ **Horários:**
+  - Tempo Total: 09h00–17h30
+  - Tempo Parcial Manhã: 09h00–12h00
+  - Tempo Parcial Tarde: 14h30–17h30
+  - Atividade Bebés: Sextas 10h00–11h30
+- ✅ **Preços:**
+  - Tempo Total: 320€/mês
+  - Tempo Parcial: 220€/mês
+  - Bebés: 15€/sessão · 48€/4 sessões · 100€/10 sessões
+  - Inscrição: 100€ (seguro incluído)
+- ✅ **Ano letivo:** 9 de setembro a 31 de julho
+- ✅ **Alimentação:** trazida de casa (frigorífico + micro-ondas disponíveis)
+- ✅ **Pedagogia:** própria, inspirada em Waldorf, Montessori, Reggio Emilia e Pikler
+- ✅ **Valores nucleares:** espírito crítico, autonomia, criatividade, valorização das emoções, filosofia para crianças
+
+## 7b. Ainda Por Confirmar
+
 - [ ] Capacidade máxima (nº de crianças)
-- [ ] Preços / mensalidades
 - [ ] Nome(s) das fundadoras / educadoras
-- [ ] Fotos reais para substituir os placeholders
-- [ ] Testemunhos de famílias
-- [ ] Número de telefone / email de contacto oficial
-- [ ] Texto definitivo "Quem Somos"
+- [ ] Fotos reais para substituir os placeholders Unsplash
+- [ ] Testemunhos reais de famílias (os atuais são fictícios)
+- [ ] Número de telefone oficial
+- [ ] Email de contacto oficial (a usar `geral@sercrescernaldeia.pt` como placeholder)
+- [ ] Regulamento Interno (referenciado no PDF para detalhes de interrupções)
 
 ---
 
