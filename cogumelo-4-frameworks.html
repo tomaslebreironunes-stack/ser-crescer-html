@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cogumelo Animado — 4 Frameworks</title>
+<style>
+@import url('data:text/css,');
+
+:root{
+  --bg:#fef9f0;
+  --green:#2d7a3a;
+  --green-light:#4caf50;
+  --soil:#8B5E3C;
+  --red:#e8392a;
+  --red-dark:#c0281b;
+  --white:#fff;
+  --cream:#fff8ee;
+  --txt:#2a1a0e;
+  --mute:#8a7060;
+  --border:#e8d8c0;
+  --shadow:rgba(80,40,10,0.12);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:Georgia,'Times New Roman',serif;
+  background:var(--bg);
+  color:var(--txt);
+  min-height:100vh;
+  padding:32px 20px 80px;
+}
+
+/* Grass background */
+body::before{
+  content:"";position:fixed;bottom:0;left:0;right:0;height:120px;
+  background:linear-gradient(180deg,transparent,rgba(76,175,80,0.12));
+  pointer-events:none;
+}
+
+h1{
+  text-align:center;
+  font-size:clamp(24px,5vw,42px);
+  font-weight:900;
+  color:var(--green);
+  letter-spacing:-0.01em;
+  margin-bottom:6px;
+  text-shadow:2px 2px 0 rgba(45,122,58,0.15);
+}
+.subtitle{
+  text-align:center;
+  font-size:15px;
+  color:var(--mute);
+  margin-bottom:48px;
+  font-style:italic;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:28px;
+  max-width:1280px;
+  margin:0 auto;
+}
+
+/* CARD */
+.card{
+  background:var(--white);
+  border-radius:20px;
+  border:2px solid var(--border);
+  overflow:hidden;
+  box-shadow:0 4px 24px var(--shadow);
+  transition:transform 0.25s,box-shadow 0.25s;
+}
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 40px var(--shadow);
+}
+
+.card-head{
+  padding:18px 20px 14px;
+  border-bottom:2px solid var(--border);
+  background:var(--cream);
+}
+.card-tag{
+  display:inline-block;
+  font-family:monospace;
+  font-size:10.5px;
+  font-weight:700;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  padding:3px 9px;
+  border-radius:6px;
+  margin-bottom:8px;
+}
+.card-title{
+  font-size:18px;
+  font-weight:800;
+  color:var(--txt);
+  margin-bottom:4px;
+}
+.card-desc{
+  font-size:12.5px;
+  color:var(--mute);
+  line-height:1.5;
+}
+
+.card-stage{
+  height:260px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,#e8f5e9 0%,#c8e6c9 60%,#a5d6a7 100%);
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+/* Ground line */
+.card-stage::after{
+  content:"";
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:48px;
+  background:linear-gradient(180deg,transparent,rgba(139,94,60,0.25));
+  border-top:2px solid rgba(139,94,60,0.2);
+}
+
+.card-info{
+  padding:14px 20px 18px;
+}
+.card-info h4{
+  font-size:12px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--mute);
+  font-weight:700;
+  margin-bottom:8px;
+  font-family:monospace;
+}
+
+.pros{
+  display:flex;flex-direction:column;gap:4px;
+  margin-bottom:10px;
+}
+.pro,.con{
+  font-size:12.5px;
+  display:flex;align-items:flex-start;gap:6px;
+  line-height:1.4;
+}
+.pro{color:#2d7a3a}
+.con{color:#c0281b}
+
+.verdict{
+  margin-top:10px;
+  padding:8px 12px;
+  border-radius:8px;
+  font-size:12.5px;
+  font-weight:700;
+  text-align:center;
+  font-family:monospace;
+}
+
+/* ============================================================
+   COGUMELO 1 — CSS PURO
+   ============================================================ */
+.mush-css{
+  position:relative;
+  width:100px;
+  z-index:1;
+  animation: mush-bounce 2s ease-in-out infinite;
+  cursor:pointer;
+  transition:transform 0.1s;
+}
+.mush-css:hover{ animation: mush-spin 0.5s ease-in-out; }
+
+@keyframes mush-bounce{
+  0%,100%{ transform:translateY(0) scale(1); }
+  50%{ transform:translateY(-18px) scale(1.04); }
+}
+@keyframes mush-spin{
+  0%{ transform:rotate(0deg) scale(1.1); }
+  50%{ transform:rotate(10deg) scale(1.2); }
+  100%{ transform:rotate(0deg) scale(1); }
+}
+
+.cap{
+  width:100px; height:55px;
+  background:radial-gradient(ellipse at 35% 30%, #ff6b5b, var(--red) 55%, var(--red-dark));
+  border-radius:60px 60px 0 0;
+  position:relative;
+  box-shadow: 0 4px 12px rgba(200,40,27,0.3);
+  animation: cap-breathe 2s ease-in-out infinite;
+}
+@keyframes cap-breathe{
+  0%,100%{ transform:scaleX(1); }
+  50%{ transform:scaleX(1.05); }
+}
+/* cap rim */
+.cap::after{
+  content:"";
+  position:absolute;
+  bottom:-6px;left:-8px;right:-8px;height:14px;
+  background:radial-gradient(ellipse,#f9c9c0,var(--red-dark));
+  border-radius:50%;
+  z-index:-1;
+}
+/* dots */
+.dot{
+  position:absolute;
+  background:#fff;
+  border-radius:50%;
+  box-shadow:0 1px 3px rgba(0,0,0,0.15);
+}
+.dot1{ width:14px;height:14px; top:10px;left:18px; animation:dot-pop 2s 0.2s ease-in-out infinite; }
+.dot2{ width:10px;height:10px; top:8px;left:62px; animation:dot-pop 2s 0.5s ease-in-out infinite; }
+.dot3{ width:12px;height:12px; top:28px;left:42px; animation:dot-pop 2s 0.35s ease-in-out infinite; }
+.dot4{ width:8px;height:8px; top:22px;left:14px; animation:dot-pop 2s 0.6s ease-in-out infinite; }
+.dot5{ width:8px;height:8px; top:24px;left:72px; animation:dot-pop 2s 0.1s ease-in-out infinite; }
+@keyframes dot-pop{
+  0%,100%{ transform:scale(1); opacity:1; }
+  50%{ transform:scale(1.25); opacity:0.85; }
+}
+
+.stem{
+  width:36px; height:32px;
+  background:linear-gradient(180deg,#f9efe0,#e8d8b8);
+  border-radius:0 0 10px 10px;
+  margin:0 auto;
+  position:relative;
+  box-shadow:inset -3px 0 6px rgba(0,0,0,0.06);
+}
+.stem::before{
+  content:"";position:absolute;
+  left:0;right:0;top:0;height:6px;
+  background:rgba(255,255,255,0.5);border-radius:4px 4px 0 0;
+}
+/* eyes on stem */
+.face{
+  position:absolute;
+  bottom:6px;left:0;right:0;
+  display:flex;justify-content:center;gap:8px;
+}
+.eye{
+  width:5px;height:5px;
+  background:#5a3e28;
+  border-radius:50%;
+  animation:blink 4s ease-in-out infinite;
+}
+.eye.right{ animation-delay:0.1s; }
+@keyframes blink{
+  0%,90%,100%{ transform:scaleY(1); }
+  93%,97%{ transform:scaleY(0.1); }
+}
+
+/* grass tufts */
+.grass-tuft{
+  position:absolute;
+  bottom:14px;
+  display:flex;gap:2px;
+  z-index:2;
+}
+.blade{
+  width:5px;height:16px;
+  background:var(--green-light);
+  border-radius:3px 3px 0 0;
+  transform-origin:bottom center;
+}
+.blade:nth-child(1){ animation:sway 2.2s 0s ease-in-out infinite; height:12px; }
+.blade:nth-child(2){ animation:sway 2.2s 0.3s ease-in-out infinite; height:18px; background:#388e3c; }
+.blade:nth-child(3){ animation:sway 2.2s 0.15s ease-in-out infinite; height:14px; }
+@keyframes sway{
+  0%,100%{ transform:rotate(-4deg); }
+  50%{ transform:rotate(4deg); }
+}
+
+
+/* ============================================================
+   COGUMELO 2 — SVG ANIMADO
+   ============================================================ */
+.mush-svg-wrap{
+  z-index:1;
+  animation:svg-float 3s ease-in-out infinite;
+}
+@keyframes svg-float{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-14px); }
+}
+.mush-svg-wrap:hover svg{ animation:svg-wiggle 0.4s ease-in-out; }
+@keyframes svg-wiggle{
+  0%{ transform:rotate(0); }
+  25%{ transform:rotate(-8deg); }
+  75%{ transform:rotate(8deg); }
+  100%{ transform:rotate(0); }
+}
+.mush-svg-wrap svg{
+  filter:drop-shadow(0 6px 12px rgba(200,40,27,0.25));
+}
+
+/* SVG internal animations via CSS */
+#svg-cap{
+  animation:svg-cap-pulse 2.5s ease-in-out infinite;
+  transform-origin:50% 100%;
+}
+@keyframes svg-cap-pulse{
+  0%,100%{ transform:scaleX(1) scaleY(1); }
+  50%{ transform:scaleX(1.06) scaleY(1.04); }
+}
+#svg-dot1{ animation:svg-dot-pop 2s 0s ease-in-out infinite; transform-origin:center; }
+#svg-dot2{ animation:svg-dot-pop 2s 0.4s ease-in-out infinite; transform-origin:center; }
+#svg-dot3{ animation:svg-dot-pop 2s 0.7s ease-in-out infinite; transform-origin:center; }
+#svg-dot4{ animation:svg-dot-pop 2s 0.2s ease-in-out infinite; transform-origin:center; }
+@keyframes svg-dot-pop{
+  0%,100%{ transform:scale(1); }
+  50%{ transform:scale(1.4); }
+}
+#svg-left-eye,#svg-right-eye{
+  animation:svg-blink 4s ease-in-out infinite;
+  transform-origin:center;
+}
+#svg-right-eye{ animation-delay:0.1s; }
+@keyframes svg-blink{
+  0%,88%,100%{ transform:scaleY(1); }
+  92%,96%{ transform:scaleY(0.1); }
+}
+#svg-mouth{
+  animation:svg-smile 3s ease-in-out infinite;
+}
+@keyframes svg-smile{
+  0%,100%{ d:path("M 44 82 Q 50 88 56 82"); }
+  50%{ d:path("M 43 84 Q 50 92 57 84"); }
+}
+#svg-sparkle1{ animation:sparkle 2s 0.5s ease-in-out infinite; transform-origin:center; opacity:0; }
+#svg-sparkle2{ animation:sparkle 2s 1.2s ease-in-out infinite; transform-origin:center; opacity:0; }
+#svg-sparkle3{ animation:sparkle 2s 0s ease-in-out infinite; transform-origin:center; opacity:0; }
+@keyframes sparkle{
+  0%,100%{ opacity:0; transform:scale(0) rotate(0deg); }
+  50%{ opacity:1; transform:scale(1) rotate(180deg); }
+}
+#svg-grass1{ animation:sway 2s 0s ease-in-out infinite; transform-origin:bottom center; }
+#svg-grass2{ animation:sway 2s 0.3s ease-in-out infinite; transform-origin:bottom center; }
+#svg-grass3{ animation:sway 2s 0.6s ease-in-out infinite; transform-origin:bottom center; }
+#svg-shadow{ animation:shadow-pulse 2.5s ease-in-out infinite; transform-origin:center; }
+@keyframes shadow-pulse{
+  0%,100%{ transform:scaleX(1); opacity:0.25; }
+  50%{ transform:scaleX(0.85); opacity:0.15; }
+}
+
+
+/* ============================================================
+   COGUMELO 3 — CANVAS 2D
+   ============================================================ */
+#canvas2d{
+  z-index:1;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* ============================================================
+   COGUMELO 4 — CANVAS 3D (simula Three.js)
+   ============================================================ */
+#canvas3d{
+  z-index:1;
+  cursor:grab;
+}
+#canvas3d:active{ cursor:grabbing; }
+
+/* TAGS */
+.tag-css{ background:#e8f5e9;color:#2d7a3a;border:1.5px solid #a5d6a7; }
+.tag-svg{ background:#e3f2fd;color:#1565c0;border:1.5px solid #90caf9; }
+.tag-canvas{ background:#fff3e0;color:#e65100;border:1.5px solid #ffcc80; }
+.tag-webgl{ background:#fce4ec;color:#880e4f;border:1.5px solid #f48fb1; }
+
+.verdict-css{ background:#e8f5e9;color:#2d7a3a; }
+.verdict-svg{ background:#e3f2fd;color:#1565c0; }
+.verdict-canvas{ background:#fff3e0;color:#e65100; }
+.verdict-webgl{ background:#fce4ec;color:#880e4f; }
+
+/* RECOMMENDATION BANNER */
+.rec{
+  max-width:900px;
+  margin:40px auto 0;
+  background:var(--white);
+  border:2px solid var(--border);
+  border-radius:16px;
+  padding:24px 28px;
+  box-shadow:0 4px 24px var(--shadow);
+}
+.rec h2{
+  font-size:20px;font-weight:800;color:var(--green);
+  margin-bottom:16px;display:flex;align-items:center;gap:10px;
+}
+.rec-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:14px;
+}
+.rec-item{
+  padding:12px 14px;
+  border-radius:10px;
+  border:1.5px solid var(--border);
+  background:var(--cream);
+}
+.rec-item h4{ font-size:13px;font-weight:700;margin-bottom:4px; }
+.rec-item p{ font-size:12px;color:var(--mute);line-height:1.5; }
+
+</style>
+</head>
+<body>
+
+<h1>🍄 Cogumelo Animado</h1>
+<p class="subtitle">Infantário Ser Crescer na Aldeia — 4 abordagens diferentes com Claude Code</p>
+
+<div class="grid">
+
+  <!-- ===== CARD 1: CSS PURO ===== -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-tag tag-css">CSS Puro</div>
+      <div class="card-title">Só CSS @keyframes</div>
+      <div class="card-desc">Zero JavaScript, zero bibliotecas. Tudo em CSS — shapes, animações, hover.</div>
+    </div>
+    <div class="card-stage" id="stage1">
+      <!-- grass left -->
+      <div class="grass-tuft" style="left:30px">
+        <div class="blade"></div><div class="blade"></div><div class="blade"></div>
+      </div>
+      <!-- mushroom -->
+      <div class="mush-css" id="mush1">
+        <div class="cap">
+          <div class="dot dot1"></div>
+          <div class="dot dot2"></div>
+          <div class="dot dot3"></div>
+          <div class="dot dot4"></div>
+          <div class="dot dot5"></div>
+        </div>
+        <div class="stem">
+          <div class="face">
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+          </div>
+        </div>
+      </div>
+      <!-- grass right -->
+      <div class="grass-tuft" style="right:28px">
+        <div class="blade"></div><div class="blade"></div><div class="blade"></div>
+      </div>
+    </div>
+    <div class="card-info">
+      <h4>Avaliação</h4>
+      <div class="pros">
+        <div class="pro">✅ Carrega instantaneamente</div>
+        <div class="pro">✅ Zero dependências</div>
+        <div class="pro">✅ Claude Code escreve em 10 segundos</div>
+        <div class="con">❌ Formas limitadas a rectângulos e círculos</div>
+        <div class="con">❌ Difícil de fazer curvas orgânicas complexas</div>
+      </div>
+      <div class="verdict verdict-css">🎯 Melhor para: elementos decorativos simples</div>
+    </div>
+  </div>
+
+  <!-- ===== CARD 2: SVG ===== -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-tag tag-svg">SVG + CSS</div>
+      <div class="card-title">SVG com animações CSS</div>
+      <div class="card-desc">Vectores escaláveis com curvas perfeitas. Anima cada parte individualmente.</div>
+    </div>
+    <div class="card-stage" id="stage2">
+      <div class="mush-svg-wrap">
+        <svg width="120" height="150" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- shadow -->
+          <ellipse id="svg-shadow" cx="50" cy="125" rx="28" ry="5" fill="#5a3e28"/>
+          <!-- grass -->
+          <rect id="svg-grass1" x="14" y="110" width="4" height="14" rx="2" fill="#388e3c"/>
+          <rect id="svg-grass2" x="20" y="106" width="4" height="18" rx="2" fill="#4caf50"/>
+          <rect id="svg-grass3" x="75" y="108" width="4" height="16" rx="2" fill="#4caf50"/>
+          <!-- stem -->
+          <path d="M 37 70 Q 33 95 35 115 L 65 115 Q 67 95 63 70 Z" fill="#f5e6c8"/>
+          <path d="M 37 70 Q 33 95 35 115 L 65 115 Q 67 95 63 70 Z" fill="url(#stemGrad)"/>
+          <!-- collar -->
+          <ellipse cx="50" cy="72" rx="18" ry="6" fill="#e8d0a8"/>
+          <!-- cap -->
+          <g id="svg-cap">
+            <path d="M 10 62 Q 15 20 50 15 Q 85 20 90 62 Q 70 75 50 74 Q 30 75 10 62 Z" fill="url(#capGrad)"/>
+            <!-- cap shine -->
+            <path d="M 22 40 Q 30 25 45 22" stroke="rgba(255,255,255,0.5)" stroke-width="3" stroke-linecap="round" fill="none"/>
+          </g>
+          <!-- dots -->
+          <circle id="svg-dot1" cx="30" cy="42" r="7" fill="white" opacity="0.9"/>
+          <circle id="svg-dot2" cx="68" cy="38" r="5.5" fill="white" opacity="0.9"/>
+          <circle id="svg-dot3" cx="50" cy="55" r="6" fill="white" opacity="0.9"/>
+          <circle id="svg-dot4" cx="42" cy="30" r="4" fill="white" opacity="0.9"/>
+          <!-- eyes -->
+          <ellipse id="svg-left-eye" cx="43" cy="81" rx="3" ry="3.5" fill="#4a2f1a"/>
+          <ellipse id="svg-right-eye" cx="57" cy="81" rx="3" ry="3.5" fill="#4a2f1a"/>
+          <!-- eye shine -->
+          <circle cx="44.5" cy="79.5" r="1" fill="white"/>
+          <circle cx="58.5" cy="79.5" r="1" fill="white"/>
+          <!-- mouth -->
+          <path id="svg-mouth" d="M 44 87 Q 50 93 56 87" stroke="#4a2f1a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <!-- sparkles -->
+          <g id="svg-sparkle1">
+            <line x1="8" y1="30" x2="8" y2="36" stroke="#ffd54f" stroke-width="2" stroke-linecap="round"/>
+            <line x1="5" y1="33" x2="11" y2="33" stroke="#ffd54f" stroke-width="2" stroke-linecap="round"/>
+          </g>
+          <g id="svg-sparkle2">
+            <line x1="92" y1="25" x2="92" y2="31" stroke="#ffd54f" stroke-width="2" stroke-linecap="round"/>
+            <line x1="89" y1="28" x2="95" y2="28" stroke="#ffd54f" stroke-width="2" stroke-linecap="round"/>
+          </g>
+          <g id="svg-sparkle3">
+            <line x1="92" y1="55" x2="92" y2="59" stroke="#ffd54f" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="90" y1="57" x2="94" y2="57" stroke="#ffd54f" stroke-width="1.5" stroke-linecap="round"/>
+          </g>
+          <!-- gradients -->
+          <defs>
+            <radialGradient id="capGrad" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#ff7b6b"/>
+              <stop offset="50%" stop-color="#e8392a"/>
+              <stop offset="100%" stop-color="#b02318"/>
+            </radialGradient>
+            <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="rgba(0,0,0,0.05)"/>
+              <stop offset="60%" stop-color="transparent"/>
+              <stop offset="100%" stop-color="rgba(0,0,0,0.06)"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+    <div class="card-info">
+      <h4>Avaliação</h4>
+      <div class="pros">
+        <div class="pro">✅ Curvas orgânicas perfeitas</div>
+        <div class="pro">✅ Escala para qualquer tamanho sem perder qualidade</div>
+        <div class="pro">✅ Cada parte animável individualmente</div>
+        <div class="pro">✅ Claude Code gera SVG paths facilmente</div>
+        <div class="con">❌ Código SVG pode ficar extenso</div>
+      </div>
+      <div class="verdict verdict-svg">🎯 Melhor para: mascotes, ícones, ilustrações 2D</div>
+    </div>
+  </div>
+
+  <!-- ===== CARD 3: CANVAS 2D ===== -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-tag tag-canvas">Canvas 2D API</div>
+      <div class="card-title">JavaScript Canvas</div>
+      <div class="card-desc">Desenhado pixel a pixel com JS. Física, partículas, animações baseadas em frame.</div>
+    </div>
+    <div class="card-stage" id="stage3" style="padding:0">
+      <canvas id="canvas2d" width="280" height="260"></canvas>
+    </div>
+    <div class="card-info">
+      <h4>Avaliação</h4>
+      <div class="pros">
+        <div class="pro">✅ Física e partículas (chuva de cogumelos, confetti)</div>
+        <div class="pro">✅ Click interactivo por zonas</div>
+        <div class="pro">✅ Animações procedurais únicas</div>
+        <div class="con">❌ Não é escalável (resolução fixa)</div>
+        <div class="con">❌ Mais código que CSS/SVG para o mesmo resultado</div>
+      </div>
+      <div class="verdict verdict-canvas">🎯 Melhor para: jogos, partículas, chuva de objectos</div>
+    </div>
+  </div>
+
+  <!-- ===== CARD 4: WebGL / Three.js ===== -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-tag tag-webgl">WebGL / Three.js</div>
+      <div class="card-title">3D em tempo real</div>
+      <div class="card-desc">Cogumelo 3D rotativo com luzes e materiais. Arrasta para rodar.</div>
+    </div>
+    <div class="card-stage" id="stage4" style="padding:0;background:linear-gradient(160deg,#1a2a1a,#2d4a2d)">
+      <canvas id="canvas3d" width="280" height="260"></canvas>
+    </div>
+    <div class="card-info">
+      <h4>Avaliação</h4>
+      <div class="pros">
+        <div class="pro">✅ Profundidade e realismo impossíveis em 2D</div>
+        <div class="pro">✅ Interacção 3D (rodar, zoom, click em faces)</div>
+        <div class="pro">✅ Claude Code escreve Three.js sem esforço</div>
+        <div class="con">❌ +600KB de biblioteca (Three.js)</div>
+        <div class="con">❌ Overkill para uso decorativo simples</div>
+      </div>
+      <div class="verdict verdict-webgl">🎯 Melhor para: hero sections premium, produto 3D</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- RECOMMENDATION -->
+<div class="rec">
+  <h2>🌱 O que usar no Infantário Ser Crescer na Aldeia?</h2>
+  <div class="rec-grid">
+    <div class="rec-item">
+      <h4 style="color:#1565c0">✅ SVG + CSS — A escolha certa</h4>
+      <p>Mascote do infantário em SVG. Escala perfeitamente em mobile e tablet. Claude Code gera o SVG inteiro em 1 prompt. Leve, sem dependências.</p>
+    </div>
+    <div class="rec-item">
+      <h4 style="color:#2d7a3a">✅ CSS para decoração</h4>
+      <p>Flores, borboletas, nuvens, estrelas em redor do site — CSS shapes animadas. Zero peso extra, Claude faz em segundos.</p>
+    </div>
+    <div class="rec-item">
+      <h4 style="color:#e65100">⚠️ Canvas só se precisares</h4>
+      <p>Se o cliente quiser um mini-jogo ("clica no cogumelo e ganhas pontos") ou chuva de cogumelos no hero. Não para decoração estática.</p>
+    </div>
+    <div class="rec-item">
+      <h4 style="color:#880e4f">❌ Three.js — não aqui</h4>
+      <p>Overkill absoluto para um infantário. +600KB a carregar para pais em 4G por uma mascote. Guarda para projectos tech premium.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CANVAS 2D — Cogumelo com partículas e bounce
+   ============================================================ */
+(function(){
+  const canvas = document.getElementById('canvas2d');
+  const ctx = canvas.getContext('2d');
+  let t = 0;
+  let particles = [];
+  let mouseX = 140, mouseY = 130;
+  let clicked = false;
+
+  canvas.addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect();
+    mouseX = e.clientX - r.left;
+    mouseY = e.clientY - r.top;
+  });
+  canvas.addEventListener('click', () => {
+    clicked = true;
+    for(let i=0;i<18;i++){
+      particles.push({
+        x:140, y:120,
+        vx:(Math.random()-0.5)*6,
+        vy:Math.random()*-8-2,
+        life:1, size:Math.random()*5+3,
+        color:`hsl(${Math.random()*60+10},90%,60%)`
+      });
+    }
+    setTimeout(()=>clicked=false,100);
+  });
+
+  function drawMushroom(x, y, scale, angle){
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+    ctx.scale(scale, scale);
+
+    // shadow
+    ctx.save();
+    ctx.scale(1,0.3);
+    ctx.beginPath();
+    ctx.ellipse(0,0,28,28,0,0,Math.PI*2);
+    const sg = ctx.createRadialGradient(0,0,0,0,0,28);
+    sg.addColorStop(0,'rgba(80,40,10,0.3)');
+    sg.addColorStop(1,'transparent');
+    ctx.fillStyle=sg;
+    ctx.fill();
+    ctx.restore();
+
+    // stem
+    ctx.beginPath();
+    ctx.moveTo(-14,0);
+    ctx.bezierCurveTo(-16,20,-16,40,-13,50);
+    ctx.lineTo(13,50);
+    ctx.bezierCurveTo(16,40,16,20,14,0);
+    ctx.closePath();
+    const sg2 = ctx.createLinearGradient(-16,0,16,0);
+    sg2.addColorStop(0,'#d4b896');
+    sg2.addColorStop(0.4,'#f5e6c8');
+    sg2.addColorStop(1,'#e0c9a0');
+    ctx.fillStyle=sg2;
+    ctx.fill();
+
+    // cap
+    const capY = -5 + Math.sin(t*2)*2;
+    ctx.beginPath();
+    ctx.moveTo(-38,2+capY);
+    ctx.bezierCurveTo(-42,-30+capY,-20,-58+capY,0,-60+capY);
+    ctx.bezierCurveTo(20,-58+capY,42,-30+capY,38,2+capY);
+    ctx.bezierCurveTo(24,10+capY,8,12+capY,0,12+capY);
+    ctx.bezierCurveTo(-8,12+capY,-24,10+capY,-38,2+capY);
+    const cg = ctx.createRadialGradient(-10,-40+capY,5,0,-20+capY,55);
+    cg.addColorStop(0,'#ff7b6b');
+    cg.addColorStop(0.5,'#e8392a');
+    cg.addColorStop(1,'#9e1f12');
+    ctx.fillStyle=cg;
+    ctx.fill();
+
+    // dots
+    const dots=[[-22,-38+capY,8],[-4,-54+capY,6],[22,-42+capY,7],[28,-24+capY,5],[-30,-20+capY,5]];
+    dots.forEach(([dx,dy,r])=>{
+      ctx.beginPath();
+      ctx.arc(dx,dy,r+Math.sin(t*3+dx)*0.8,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,0.92)';
+      ctx.fill();
+    });
+
+    // blink
+    const eyeClose = (Math.sin(t*0.8) > 0.96);
+    const eyeH = eyeClose ? 0.5 : 3.5;
+    ctx.fillStyle='#4a2f1a';
+    ctx.beginPath();ctx.ellipse(-7,20,2.8,eyeH,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(7,20,2.8,eyeH,0,0,Math.PI*2);ctx.fill();
+    // shine
+    ctx.fillStyle='white';
+    ctx.beginPath();ctx.arc(-5.5,18,1,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(8.5,18,1,0,Math.PI*2);ctx.fill();
+    // mouth
+    const smileY = 28 + Math.sin(t*1.5)*1;
+    ctx.beginPath();
+    ctx.moveTo(-8,smileY);
+    ctx.quadraticCurveTo(0,smileY+6,8,smileY);
+    ctx.strokeStyle='#4a2f1a';ctx.lineWidth=1.8;ctx.lineCap='round';
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  function drawGrass(){
+    const blades = [
+      {x:38,h:22,color:'#4caf50',delay:0},
+      {x:46,h:18,color:'#388e3c',delay:0.3},
+      {x:228,h:20,color:'#4caf50',delay:0.15},
+      {x:236,h:16,color:'#66bb6a',delay:0.5},
+    ];
+    blades.forEach(b=>{
+      ctx.save();
+      ctx.translate(b.x,230);
+      ctx.rotate(Math.sin(t+b.delay)*0.12);
+      ctx.beginPath();
+      ctx.moveTo(-3,0);
+      ctx.quadraticCurveTo(-4,-b.h/2,-1,-b.h);
+      ctx.quadraticCurveTo(1,-b.h,2,-b.h/2);
+      ctx.lineTo(3,0);
+      ctx.fillStyle=b.color;
+      ctx.fill();
+      ctx.restore();
+    });
+  }
+
+  function updateParticles(){
+    particles = particles.filter(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.25; p.life-=0.04;
+      if(p.life<=0)return false;
+      ctx.globalAlpha=p.life;
+      ctx.fillStyle=p.color;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
+      ctx.globalAlpha=1;
+      return true;
+    });
+  }
+
+  function loop(){
+    t+=0.03;
+    ctx.clearRect(0,0,280,260);
+
+    // sky gradient
+    const sky=ctx.createLinearGradient(0,0,0,260);
+    sky.addColorStop(0,'#e8f5e9');
+    sky.addColorStop(0.7,'#c8e6c9');
+    sky.addColorStop(1,'#a5d6a7');
+    ctx.fillStyle=sky;ctx.fillRect(0,0,280,260);
+
+    // ground
+    const gnd=ctx.createLinearGradient(0,230,0,260);
+    gnd.addColorStop(0,'transparent');
+    gnd.addColorStop(1,'rgba(139,94,60,0.2)');
+    ctx.fillStyle=gnd;ctx.fillRect(0,230,280,30);
+
+    drawGrass();
+
+    const bounce = Math.sin(t*1.5)*12;
+    const scaleY = 1 + Math.sin(t*3)*0.02;
+    ctx.save();
+    ctx.translate(140, 155+bounce);
+    ctx.scale(1, scaleY);
+    drawMushroom(0, 0, 1.1, 0);
+    ctx.restore();
+
+    updateParticles();
+
+    // hint text
+    ctx.fillStyle='rgba(80,60,40,0.35)';
+    ctx.font='11px Georgia';
+    ctx.textAlign='center';
+    ctx.fillText('clica para celebrar ✨',140,248);
+
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+
+/* ============================================================
+   CANVAS 3D — Cogumelo 3D simplificado (simula Three.js)
+   ============================================================ */
+(function(){
+  const canvas = document.getElementById('canvas3d');
+  const ctx = canvas.getContext('2d');
+  let rotY = 0.4, rotX = 0.15;
+  let isDragging = false;
+  let lastX = 0, lastY = 0;
+  let autoRot = true;
+  let t = 0;
+
+  canvas.addEventListener('mousedown', e=>{
+    isDragging=true; lastX=e.clientX; lastY=e.clientY; autoRot=false;
+  });
+  window.addEventListener('mouseup',()=>{ isDragging=false; });
+  window.addEventListener('mousemove',e=>{
+    if(!isDragging)return;
+    rotY+=(e.clientX-lastX)*0.012;
+    rotX+=(e.clientY-lastY)*0.008;
+    rotX=Math.max(-0.6,Math.min(0.6,rotX));
+    lastX=e.clientX; lastY=e.clientY;
+  });
+
+  // 3D point transform
+  function project(x,y,z){
+    const cosY=Math.cos(rotY),sinY=Math.sin(rotY);
+    const cosX=Math.cos(rotX),sinX=Math.sin(rotX);
+    let rx=x*cosY+z*sinY;
+    let rz=-x*sinY+z*cosY;
+    let ry=y*cosX-rz*sinX;
+    let rz2=y*sinX+rz*cosX;
+    const fov=280;
+    const scale=fov/(fov+rz2+100);
+    return {
+      sx:140+rx*scale,
+      sy:130+ry*scale,
+      scale,
+      depth:rz2
+    };
+  }
+
+  function drawEllipse3D(cx,cy,cz,rx,ry,color,shadow){
+    // approximate ellipse in 3D by projecting 8 points
+    const pts=[];
+    for(let i=0;i<24;i++){
+      const a=(i/24)*Math.PI*2;
+      const lx=cx+Math.cos(a)*rx;
+      const ly=cy+Math.sin(a)*ry;
+      pts.push(project(lx,ly,cz));
+    }
+    ctx.beginPath();
+    ctx.moveTo(pts[0].sx,pts[0].sy);
+    pts.forEach(p=>ctx.lineTo(p.sx,p.sy));
+    ctx.closePath();
+    if(shadow){
+      ctx.shadowColor='rgba(0,0,0,0.4)';
+      ctx.shadowBlur=12;
+    }
+    ctx.fillStyle=color;
+    ctx.fill();
+    ctx.shadowBlur=0;
+  }
+
+  function loop(){
+    t+=0.02;
+    if(autoRot) rotY+=0.018;
+
+    ctx.clearRect(0,0,280,260);
+
+    // background
+    const bg=ctx.createLinearGradient(0,0,0,260);
+    bg.addColorStop(0,'#1a2a1a');
+    bg.addColorStop(1,'#2d4a2d');
+    ctx.fillStyle=bg;ctx.fillRect(0,0,280,260);
+
+    // ground glow
+    const gg=ctx.createRadialGradient(140,220,5,140,220,80);
+    gg.addColorStop(0,'rgba(76,175,80,0.2)');
+    gg.addColorStop(1,'transparent');
+    ctx.fillStyle=gg;ctx.fillRect(0,0,280,260);
+
+    // floating particles
+    for(let i=0;i<8;i++){
+      const px=50+Math.sin(t*0.7+i*1.3)*80+i*20;
+      const py=180+Math.cos(t*0.5+i*0.9)*30+i*5;
+      ctx.beginPath();
+      ctx.arc(px,py,1.5,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,200,${0.3+Math.sin(t+i)*0.3})`;
+      ctx.fill();
+    }
+
+    const bobY = Math.sin(t*1.5)*6;
+
+    // ground shadow
+    drawEllipse3D(0,48+bobY,-2,32,8,'rgba(0,0,0,0.4)',false);
+
+    // STEM slices (cylinder approximation)
+    const stemColors=['#c8a878','#dfc090','#e8d0a8','#dfc090','#c8a878'];
+    for(let i=4;i>=0;i--){
+      const r=13-i*0.3;
+      drawEllipse3D(0,-20+i*14+bobY,0,r,r*0.35,stemColors[i],i===0);
+    }
+    // stem top
+    drawEllipse3D(0,-20+bobY,0,14,5,'#f0dfc0',false);
+
+    // CAP slices (dome approximation)
+    const capColors=[
+      '#8a1a0e','#b8220f','#d42e18','#e84030','#f05040',
+      '#e84030','#d42e18','#c02618','#a01e12'
+    ];
+    const capRads=[8,18,26,32,36,34,28,18,8];
+    const capYOff=[-55,-52,-47,-40,-32,-24,-16,-8,0];
+    for(let i=capRads.length-1;i>=0;i--){
+      const ry=capRads[i];
+      const rx=ry*2.2;
+      drawEllipse3D(0,capYOff[i]+bobY,0,rx,rx*0.28,capColors[i],i===capRads.length-1);
+    }
+    // cap top highlight
+    drawEllipse3D(-8,-52+bobY,0,12,4,'rgba(255,140,120,0.5)',false);
+
+    // white dots on cap
+    [[22,-40,4],[-12,-46,3],[-18,-36,3.5],[10,-50,3]].forEach(([dx,dy,r])=>{
+      const p=project(dx,dy+bobY,0);
+      ctx.beginPath();
+      ctx.arc(p.sx,p.sy,r*p.scale*2.5,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,0.85)';
+      ctx.fill();
+    });
+
+    // eyes on stem
+    const eyeP1=project(-4,-12+bobY,14);
+    const eyeP2=project(4,-12+bobY,14);
+    if(eyeP1.depth<30){
+      const blink=(Math.sin(t*0.6)>0.94);
+      ctx.fillStyle='#2a1a0a';
+      ctx.beginPath();ctx.ellipse(eyeP1.sx,eyeP1.sy,3,blink?0.4:3,0,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.ellipse(eyeP2.sx,eyeP2.sy,3,blink?0.4:3,0,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='white';
+      ctx.beginPath();ctx.arc(eyeP1.sx+1,eyeP1.sy-1,1,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(eyeP2.sx+1,eyeP2.sy-1,1,0,Math.PI*2);ctx.fill();
+    }
+
+    // label
+    ctx.fillStyle='rgba(255,255,255,0.3)';
+    ctx.font='10px monospace';
+    ctx.textAlign='center';
+    ctx.fillText('arrasta para rodar',140,250);
+
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+</script>
+</body>
+</html>

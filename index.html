@@ -12,7 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="assets/ser-logo.svg" />
+  <link rel="apple-touch-icon" href="assets/ser-logo.svg" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -63,12 +64,47 @@
     ::-webkit-scrollbar-track { background: #E8D9C4; }
     ::-webkit-scrollbar-thumb { background: #5A7D5E; border-radius: 3px; }
 
-    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-    body { background-color: #FDF8F2; color: #2C1A0E; overflow-x: hidden; }
+    html {
+      scroll-padding-top: 5.5rem;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    body {
+      background-color: #FDF8F2;
+      color: #2C1A0E;
+      overflow-x: hidden;
+      text-rendering: optimizeLegibility;
+    }
+    img, svg, video { max-width: 100%; }
+    a, button, input, select, textarea { -webkit-tap-highlight-color: rgba(196,113,74,0.18); }
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    [role="button"]:focus-visible {
+      outline: 3px solid rgba(196,113,74,0.58);
+      outline-offset: 4px;
+    }
+
+    .hero-title {
+      position: relative;
+      text-shadow: 0 10px 34px rgba(0,0,0,0.26);
+      filter: drop-shadow(0 1px 0 rgba(253,248,242,0.08));
+    }
+    .hero-title .hero-title-main {
+      letter-spacing: -0.025em;
+    }
+    .hero-title .hero-title-accent {
+      color: #D8835B;
+      text-shadow: 0 10px 32px rgba(196,113,74,0.24);
+    }
 
     /* Nav */
     #nav-header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      background: rgba(44,26,14,0.72);
+      backdrop-filter: blur(10px);
       transition: background 0.5s, backdrop-filter 0.5s, box-shadow 0.5s;
     }
     #nav-header.scrolled {
@@ -76,15 +112,24 @@
       backdrop-filter: blur(12px);
       box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
-    /* Nav logo — cogumelo solto + texto (sem círculo, como o banner deles) */
+    /* Nav logo ” cogumelo solto + texto (sem círculo, como o banner deles) */
     .nav-logo-mark {
       display: inline-flex; align-items: center; justify-content: center;
-      width: 38px; height: 44px;
+      width: 46px; height: 46px;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
       transition: filter 0.5s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
     }
+    .nav-logo-img {
+      width: 46px; height: 46px;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 14px;
+      background: #FDF8F2;
+      box-shadow: inset 0 0 0 1px rgba(253,248,242,0.16);
+    }
     .scrolled .nav-logo-mark { filter: drop-shadow(0 1px 2px rgba(0,0,0,0.08)); }
-    a:hover .nav-logo-mark { transform: rotate(-6deg) scale(1.06); }
+    a:hover .nav-logo-mark { transform: rotate(-3deg) scale(1.05); }
 
     .nav-logo-title { color: #FDF8F2; transition: color 0.5s; }
     .scrolled .nav-logo-title { color: #2C1A0E; }
@@ -107,23 +152,23 @@
       max-height: 0; opacity: 0; overflow: hidden;
       transition: max-height 0.3s, opacity 0.3s;
     }
-    #mobile-menu.open { max-height: 480px; opacity: 1; }
+    #mobile-menu.open { max-height: min(480px, calc(100svh - 4.5rem)); opacity: 1; }
 
     /* Lightbox */
     #lightbox {
-      display: none; position: fixed; inset: 0; z-index: 50;
+      display: none; position: fixed; inset: 0; z-index: 80;
       background: rgba(44,26,14,0.95);
       flex-direction: column; align-items: center; justify-content: center;
       padding: 1.5rem; cursor: zoom-out;
     }
     #lightbox.open { display: flex; }
 
-    /* ─────────────── MUSHROOM (símbolo da marca) ─────────────── */
+    /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ MUSHROOM (símbolo da marca) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .mush-mini { display:inline-block; line-height:0; }
     .mush-mini svg { display:block; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
     .mush-mini:hover svg { transform: rotate(-8deg) scale(1.08); }
 
-    /* Hero mushroom — big interactive scene (paisagem natural) */
+    /* Hero mushroom ” big interactive scene (paisagem natural) */
     .mush-scene {
       position: relative;
       width: 100%; height: 100%;
@@ -135,7 +180,7 @@
       cursor: pointer;
       user-select: none;
     }
-    /* SVG hills layer — set via inline svg in markup, plus subtle ground gradient */
+    /* SVG hills layer ” set via inline svg in markup, plus subtle ground gradient */
     .mush-scene::after {
       content:""; position:absolute; left:0; right:0; bottom:0; height:42%;
       background: linear-gradient(180deg, transparent 0%, rgba(40, 72, 40, 0.45) 100%);
@@ -190,7 +235,7 @@
     .mush-big:hover { animation: mush-wiggle 0.8s ease-in-out; }
     .mush-big.popped { animation: mush-pop 0.6s cubic-bezier(0.34,1.56,0.64,1); }
 
-    /* Saltitar — squash & stretch */
+    /* Saltitar ” squash & stretch */
     @keyframes mush-hop {
       0%   { transform: translateY(0) scaleX(1) scaleY(1); }
       8%   { transform: translateY(0) scaleX(1.12) scaleY(0.84); }   /* compress before jump */
@@ -549,37 +594,194 @@
         display: none;
       }
     }
+
+      .hero-panel,
+      .hero-ctas,
+      .hero-stats { min-width: 0; }
+    .hero-eyebrow-copy,
+    .hero-copy,
+    .hero-ctas a { overflow-wrap: anywhere; }
+    .hero-stats p {
+      overflow-wrap: normal;
+      word-break: normal;
+    }
+
+    @media (max-width: 1023px) {
+      html { scroll-padding-top: 4.75rem; }
+      #nav-header nav {
+        height: 4.25rem;
+        padding-top: 0.65rem;
+        padding-bottom: 0.65rem;
+      }
+      #nav-header {
+        right: auto;
+        width: 100vw;
+        max-width: 100vw;
+      }
+      @supports (width: 100dvw) {
+        #nav-header {
+          width: 100dvw;
+          max-width: 100dvw;
+        }
+        body,
+        main,
+        footer {
+          width: 100dvw;
+          max-width: 100dvw;
+          overflow-x: clip;
+        }
+      }
+      #nav-header nav,
+      #mobile-menu {
+        max-width: 100%;
+      }
+      .nav-logo-mark,
+      .nav-logo-img {
+        width: 42px;
+        height: 42px;
+      }
+      .nav-logo-title { font-size: 1.05rem; }
+      .nav-logo-sub {
+        font-size: 0.56rem;
+        letter-spacing: 0.12em;
+      }
+      .hero-shell { grid-template-columns: minmax(0, 1fr); }
+      .animate-in.from-right { transform: translateY(24px); }
+      .hero-panel {
+        padding: 6.25rem 1.5rem 2rem;
+        justify-content: flex-start;
+      }
+      .hero-eyebrow-copy {
+        max-width: 24rem;
+        margin-bottom: 2rem;
+        font-size: 0.62rem;
+        line-height: 1.65;
+        letter-spacing: 0.16em;
+      }
+      .hero-title { margin-bottom: 1.55rem; }
+      .hero-title .hero-title-main {
+        font-size: clamp(4.4rem, 22vw, 5.9rem);
+        line-height: 0.86;
+      }
+      .hero-title .hero-title-line,
+      .hero-title .hero-title-accent {
+        font-size: clamp(2.45rem, 12vw, 3.35rem);
+        line-height: 0.98;
+      }
+      .hero-copy {
+        max-width: 34rem;
+        margin-bottom: 2rem;
+        font-size: 1rem;
+        line-height: 1.58;
+      }
+      .hero-ctas {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.75rem;
+        width: 100%;
+        max-width: 22rem;
+      }
+      .hero-ctas a {
+        justify-content: center;
+        min-height: 3rem;
+        padding-inline: 1rem;
+        text-align: center;
+        white-space: normal;
+      }
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.75rem;
+        margin-top: 2rem;
+        padding-top: 1rem;
+      }
+      .hero-stats p:first-child {
+        font-size: clamp(1.2rem, 6vw, 1.6rem);
+        line-height: 1;
+      }
+      .hero-stats p:last-child {
+        font-size: 0.68rem;
+        line-height: 1.25;
+      }
+      .hero-video-mobile-wrap {
+        height: clamp(20rem, 72vw, 28rem);
+      }
+      section[id],
+      #inscricoes {
+        scroll-margin-top: 4.75rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .hero-panel {
+        padding-inline: 1.25rem;
+        padding-top: 5.75rem;
+      }
+      .hero-eyebrow-copy {
+        font-size: 0.58rem;
+        letter-spacing: 0.14em;
+      }
+      .hero-title .hero-title-main {
+        font-size: clamp(4rem, 21vw, 5rem);
+      }
+      .hero-title .hero-title-line,
+      .hero-title .hero-title-accent {
+        font-size: clamp(2.25rem, 11.3vw, 3rem);
+      }
+      .hero-copy {
+        font-size: 0.96rem;
+      }
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+      .hero-stats div {
+        display: grid;
+        grid-template-columns: 5.5rem minmax(0, 1fr);
+        align-items: baseline;
+        column-gap: 0.75rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .hero-panel { padding-inline: 1rem; }
+      .hero-ctas a {
+        font-size: 0.82rem;
+        padding-inline: 0.85rem;
+      }
+    }
+
+    @media (hover: none) {
+      .animate-in.from-right { transform: translateY(24px); }
+      .hover\:-translate-y-2:hover,
+      .hover\:-translate-y-1:hover,
+      .hover\:-translate-y-0\.5:hover {
+        transform: none;
+      }
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col font-body">
 
-  <!-- ─────────────── SVG SYMBOL: COGUMELO (logo SER) ─────────────── -->
+  <!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ SVG SYMBOL: COGUMELO (logo SER) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
-      <!-- Mushroom illustration — triangular cap, faithful to SER brand -->
-      <symbol id="mush-mini" viewBox="0 0 100 130">
-        <!-- stem — tall rectangular, tan/sandy -->
-        <path d="M 41 68 L 38 116 L 62 116 L 59 68 Z" fill="#C9A282"/>
-        <!-- cap — triangular with soft organic sides, flat bottom -->
-        <path d="M 49 5 Q 72 37, 91 68 L 9 68 Q 28 37, 49 5 Z" fill="#C4562A"/>
-        <!-- dots — cream ovals, scattered naturally -->
-        <ellipse cx="43" cy="19" rx="4"   ry="3.5" fill="#EFE4D2"/>
-        <ellipse cx="61" cy="24" rx="3.5" ry="3"   fill="#EFE4D2"/>
-        <ellipse cx="30" cy="34" rx="3"   ry="2.8" fill="#EFE4D2"/>
-        <ellipse cx="53" cy="36" rx="5"   ry="4.5" fill="#EFE4D2"/>
-        <ellipse cx="73" cy="32" rx="3.5" ry="3"   fill="#EFE4D2"/>
-        <ellipse cx="23" cy="48" rx="2.8" ry="2.5" fill="#EFE4D2"/>
-        <ellipse cx="44" cy="50" rx="3.5" ry="3"   fill="#EFE4D2"/>
-        <ellipse cx="66" cy="49" rx="3"   ry="2.8" fill="#EFE4D2"/>
-        <ellipse cx="80" cy="50" rx="2.8" ry="2.5" fill="#EFE4D2"/>
-        <ellipse cx="36" cy="61" rx="2.5" ry="2.2" fill="#EFE4D2"/>
-        <ellipse cx="57" cy="62" rx="3"   ry="2.5" fill="#EFE4D2"/>
-        <ellipse cx="74" cy="60" rx="2.5" ry="2.2" fill="#EFE4D2"/>
-        <ellipse cx="17" cy="58" rx="2"   ry="1.8" fill="#EFE4D2"/>
-        <ellipse cx="86" cy="56" rx="2"   ry="1.8" fill="#EFE4D2"/>
+      <!-- Mushroom illustration ” flat style matching SER brand -->
+      <symbol id="mush-mini" viewBox="0 0 28 36">
+        <!-- stem ” tan/beige, short and stocky -->
+        <path d="M 10.5 21 Q 9.8 28 10.2 33 Q 12 35.5 14 35.5 Q 16 35.5 17.8 33 Q 18.2 28 17.5 21 Z" fill="#C9A07A"/>
+        <!-- cap ” wide dome, flat illustration style -->
+        <path d="M 2.5 20 Q 1 2 14 1 Q 27 2 25.5 20 Q 20 23.5 14 23 Q 8 23.5 2.5 20 Z" fill="#C4714A"/>
+        <!-- dots ” cream, clean flat circles -->
+        <circle cx="14"  cy="7"    r="2.4" fill="#F2E8D8"/>
+        <circle cx="7"   cy="13"   r="1.8" fill="#F2E8D8"/>
+        <circle cx="21"  cy="11.5" r="2"   fill="#F2E8D8"/>
+        <circle cx="10"  cy="18"   r="1.3" fill="#F2E8D8"/>
+        <circle cx="18.5" cy="17"  r="1.4" fill="#F2E8D8"/>
+        <circle cx="4.5" cy="17.5" r="1"   fill="#F2E8D8"/>
+        <circle cx="23"  cy="17.5" r="1"   fill="#F2E8D8"/>
       </symbol>
 
-      <!-- Big mushroom — based on the SER logo: tall dome cap, dots, short flared stem -->
+      <!-- Big mushroom ” based on the SER logo: tall dome cap, dots, short flared stem -->
       <symbol id="mush-big" viewBox="0 0 200 240">
         <!-- stem (short and flared at the base, like the logo) -->
         <path d="M 78 110 Q 70 160 75 210 Q 90 220 100 220 Q 110 220 125 210 Q 130 160 122 110 Z" fill="#7A4F2E"/>
@@ -620,7 +822,7 @@
         </defs>
       </symbol>
 
-      <!-- Hero mushroom — closer to the supplied SER mark -->
+      <!-- Hero mushroom ” closer to the supplied SER mark -->
       <symbol id="mush-logo-big" viewBox="0 0 220 250">
         <defs>
           <linearGradient id="logoStemGradient" x1="82" y1="108" x2="130" y2="218" gradientUnits="userSpaceOnUse">
@@ -671,9 +873,9 @@
   <!-- NAV -->
   <header id="nav-header">
     <nav class="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-18 py-4">
-      <a href="#" class="flex items-center gap-3" aria-label="SER · Crescer na Aldeia — início">
+      <a href="#" class="flex items-center gap-3" aria-label="SER · Crescer na Aldeia – início">
         <span class="nav-logo-mark">
-          <svg width="34" height="44" viewBox="0 0 100 130" aria-hidden="true"><use href="#mush-mini"/></svg>
+          <img src="assets/ser-logo.svg" alt="" class="nav-logo-img" width="46" height="46" />
         </span>
         <div class="flex flex-col leading-none">
           <span class="nav-logo-title font-display font-bold text-xl tracking-widest">SER</span>
@@ -686,14 +888,13 @@
         <li><a href="#pilares"   class="nav-link px-4 py-2 rounded-lg text-sm font-body font-500">Abordagem</a></li>
         <li><a href="#dia"       class="nav-link px-4 py-2 rounded-lg text-sm font-body font-500">O Nosso Dia</a></li>
         <li><a href="#pais"      class="nav-link px-4 py-2 rounded-lg text-sm font-body font-500">Valores</a></li>
-        <li><a href="#precos"    class="nav-link px-4 py-2 rounded-lg text-sm font-body font-500">Preços</a></li>
       </ul>
 
       <a href="#inscricoes" class="hidden md:inline-flex items-center gap-2 bg-clay text-cream text-sm font-body font-700 px-5 py-2.5 rounded-full hover:bg-clay-dark transition-all hover:-translate-y-0.5 hover:shadow-md">
         Inscrições
       </a>
 
-      <button id="burger-btn" class="nav-burger md:hidden flex flex-col gap-[5px] p-2" aria-label="Menu" aria-expanded="false">
+      <button id="burger-btn" type="button" class="nav-burger md:hidden flex flex-col gap-[5px] p-2" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
         <span class="burger-line"></span>
         <span class="burger-line"></span>
         <span class="burger-line"></span>
@@ -707,7 +908,6 @@
         <li><a href="#dia"       class="mobile-link block px-4 py-3 rounded-lg font-body font-500 text-bark hover:bg-sand transition-colors">O Nosso Dia</a></li>
         <li><a href="#galeria"   class="mobile-link block px-4 py-3 rounded-lg font-body font-500 text-bark hover:bg-sand transition-colors">Galeria</a></li>
         <li><a href="#pais"      class="mobile-link block px-4 py-3 rounded-lg font-body font-500 text-bark hover:bg-sand transition-colors">Valores</a></li>
-        <li><a href="#precos"    class="mobile-link block px-4 py-3 rounded-lg font-body font-500 text-bark hover:bg-sand transition-colors">Horários & Preços</a></li>
         <li class="pt-2"><a href="#inscricoes" class="mobile-link inline-flex bg-clay text-cream font-body font-700 px-5 py-2.5 rounded-full text-sm">Inscrições</a></li>
       </ul>
     </div>
@@ -715,36 +915,36 @@
 
   <main>
     <!-- HERO -->
-    <section class="relative min-h-svh grid lg:grid-cols-[55%_45%] overflow-hidden">
-      <div class="relative z-10 flex flex-col justify-between bg-bark px-8 md:px-16 pt-32 pb-12 lg:pt-36 lg:pb-16">
+    <section class="hero-shell relative min-h-svh grid lg:grid-cols-[55%_45%] overflow-hidden">
+      <div class="hero-panel relative z-10 flex flex-col justify-between bg-bark px-8 md:px-16 pt-32 pb-12 lg:pt-36 lg:pb-16">
         <div>
-          <p class="font-body text-[11px] font-700 tracking-[0.2em] uppercase text-clay mb-10">Babysitting & Ateliers · Tarei, Sta. Maria da Feira</p>
-          <h1 class="font-display text-cream leading-[0.92] mb-8">
-            <span class="block text-[clamp(5rem,12vw,9rem)] italic font-400">Ser</span>
-            <span class="block text-[clamp(2.5rem,5vw,4rem)] font-600 tracking-tight">é crescer</span>
-            <span class="block text-[clamp(2.5rem,5vw,4rem)] font-600 tracking-tight text-clay">na aldeia.</span>
+          <p class="hero-eyebrow-copy font-body text-[11px] font-700 tracking-[0.2em] uppercase text-clay mb-10">Babysitting · Kids-sitting · Ateliers em comunidade · Tarei</p>
+          <h1 class="hero-title font-display text-cream leading-[0.9] mb-8">
+            <span class="hero-title-main block text-[clamp(5.7rem,12.8vw,10rem)] italic font-500">Ser</span>
+            <span class="hero-title-line block text-[clamp(2.85rem,5.4vw,4.45rem)] font-700 tracking-tight">é crescer</span>
+            <span class="hero-title-accent block text-[clamp(2.85rem,5.4vw,4.45rem)] font-700 tracking-tight">na aldeia.</span>
           </h1>
-          <p class="font-body text-cream/70 text-lg leading-relaxed max-w-md mb-12">
+          <p class="hero-copy font-body text-cream/70 text-lg leading-relaxed max-w-md mb-12">
             Desenvolvimento integral da criança — na aldeia, na natureza, em comunidade. Cultivamos liberdade, criatividade, empatia e muito amor.
           </p>
-          <div class="flex flex-wrap gap-3">
+          <div class="hero-ctas flex flex-wrap gap-3">
             <a href="#manifesto" class="group inline-flex items-center gap-2 bg-clay text-cream font-body font-700 text-sm px-6 py-3 rounded-full hover:bg-clay-dark hover:shadow-[0_8px_24px_rgba(196,113,74,0.45)] hover:-translate-y-1 active:translate-y-0 active:shadow-none active:scale-95 transition-all duration-200">
               Descobrir o SER
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform duration-200 group-hover:translate-y-0.5"><path d="M8 3v10M3 8l5 5 5-5"/></svg>
             </a>
-            <a href="#pilares" class="group inline-flex items-center gap-2 border border-cream/30 text-cream font-body font-500 text-sm px-6 py-3 rounded-full hover:border-cream/70 hover:bg-cream/8 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 transition-all duration-200">
-              Ver Atividades do SER
+            <a href="#inscricoes" class="group inline-flex items-center gap-2 border border-cream/30 text-cream font-body font-500 text-sm px-6 py-3 rounded-full hover:border-cream/70 hover:bg-cream/8 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 transition-all duration-200">
+              Inscrever-se nas atividades do SER
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" class="opacity-60 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
             </a>
           </div>
         </div>
-        <div class="flex gap-8 mt-16 pt-8 border-t border-cream/10">
+        <div class="hero-stats flex gap-8 mt-16 pt-8 border-t border-cream/10">
           <div>
-            <p class="font-display text-cream text-2xl font-600 italic">6k+</p>
+            <p class="font-display text-cream text-2xl font-600 italic">6.2k</p>
             <p class="font-body text-cream/50 text-xs tracking-wide mt-0.5">no Instagram</p>
           </div>
           <div>
-            <p class="font-display text-cream text-2xl font-600 italic">9h–17h30</p>
+            <p class="font-display text-cream text-2xl font-600 italic">09h–17h30</p>
             <p class="font-body text-cream/50 text-xs tracking-wide mt-0.5">parcial ou total</p>
           </div>
           <div>
@@ -754,19 +954,75 @@
         </div>
       </div>
 
-      <!-- Hero visual — desktop (vídeo contido + provérbio) -->
-      <div class=”relative hidden lg:flex flex-col items-center justify-center gap-6 bg-bark px-10 py-14”>
-        <!-- Vídeo card — contido, menor, bordas arredondadas -->
-        <div class=”relative rounded-2xl overflow-hidden shadow-[0_28px_60px_rgba(44,26,14,0.55)] w-[78%] max-w-[310px] aspect-[3/4]”>
-          <video class=”absolute inset-0 w-full h-full object-cover” autoplay muted loop playsinline preload=”auto”>
-            <source src=”a_c_d_df_ef_a_c_d_df_efmp_.mp4” type=”video/mp4” />
+      <!-- Hero mushroom scene (desktop) -->
+      <div class="relative hidden lg:block">
+        <div class="hero-video-scene absolute inset-0" aria-label="Vídeo SER Crescer na Aldeia">
+          <video class="hero-video" autoplay muted loop playsinline preload="auto">
+            <source src="a_c_d_df_ef_a_c_d_df_efmp_.mp4" type="video/mp4" />
           </video>
+          <aside class="hero-proverb-card" aria-label="Citação de Nelson Mandela">
+            <p class="hero-proverb-label">Nelson Mandela</p>
+            <p class="hero-proverb-text">“A educação é a ferramenta mais poderosa que podemos usar para mudar o mundo.”</p>
+          </aside>
         </div>
-        <!-- Provérbio — visível abaixo do vídeo -->
-        <div class=”bg-cream/10 border border-cream/15 rounded-xl px-5 py-4 text-center w-[78%] max-w-[310px]”>
-          <span class=”inline-flex mb-2”><svg width=”22” height=”29” viewBox=”0 0 100 130”><use href=”#mush-mini”/></svg></span>
-          <p class=”font-display text-cream/90 text-[clamp(0.82rem,1vw,1rem)] italic font-600 leading-snug”>”A educação é a ferramenta mais poderosa que podemos usar para mudar o mundo.”</p>
-          <p class=”font-body text-clay text-[10px] tracking-widest uppercase mt-2 font-600”>— Nelson Mandela</p>
+        <div id="hero-mush-scene" class="mush-scene absolute inset-0" role="img" aria-label="Cogumelo SER inspirado no logotipo">
+          <!-- Sun -->
+          <div class="mush-sun"></div>
+          <!-- Clouds -->
+          <div class="mush-cloud"></div>
+          <div class="mush-cloud"></div>
+
+          <!-- Hills (3 layers, back to front) -->
+          <div class="mush-hills">
+            <svg viewBox="0 0 400 240" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- back hills -->
+              <path d="M 0 130 Q 60 90 130 110 Q 200 130 270 95 Q 340 65 400 100 L 400 240 L 0 240 Z" fill="#6BAA68" opacity="0.85"/>
+              <!-- mid hills -->
+              <path d="M 0 170 Q 70 140 150 158 Q 230 178 310 148 Q 360 130 400 150 L 400 240 L 0 240 Z" fill="#4F8A4F"/>
+              <!-- front hill -->
+              <path d="M 0 210 Q 100 188 200 200 Q 300 214 400 198 L 400 240 L 0 240 Z" fill="#3C6E3E"/>
+              <!-- tiny tree silhouettes -->
+              <g fill="#2D5832" opacity="0.6">
+                <ellipse cx="55" cy="158" rx="6" ry="10"/>
+                <ellipse cx="65" cy="155" rx="7" ry="12"/>
+                <ellipse cx="270" cy="150" rx="6" ry="10"/>
+                <ellipse cx="346" cy="142" rx="5" ry="9"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Sparkles -->
+          <span class="mush-sparkle"><svg width="14" height="14" viewBox="0 0 24 24"><use href="#sparkle"/></svg></span>
+          <span class="mush-sparkle"><svg width="10" height="10" viewBox="0 0 24 24"><use href="#sparkle"/></svg></span>
+          <span class="mush-sparkle"><svg width="12" height="12" viewBox="0 0 24 24"><use href="#sparkle"/></svg></span>
+          <span class="mush-sparkle"><svg width="9" height="9" viewBox="0 0 24 24"><use href="#sparkle"/></svg></span>
+          <span class="mush-sparkle"><svg width="11" height="11" viewBox="0 0 24 24"><use href="#sparkle"/></svg></span>
+          <span class="mush-sparkle"><svg width="8" height="8" viewBox="0 0 24 24"><use href="#sparkle"/></svg></span>
+
+          <!-- Grass tufts -->
+          <div class="mush-grass left">
+            <span class="blade"></span><span class="blade"></span><span class="blade"></span>
+          </div>
+          <div class="mush-grass right">
+            <span class="blade"></span><span class="blade"></span><span class="blade"></span>
+          </div>
+
+          <!-- Ground shadow that compresses with hop -->
+          <div class="mush-shadow"></div>
+
+          <!-- The mushroom itself -->
+          <svg id="hero-mush" class="mush-big" viewBox="0 0 220 250" xmlns="http://www.w3.org/2000/svg">
+            <use href="#mush-logo-big"/>
+          </svg>
+
+          <p class="mush-hint">clica no cogumelo</p>
+        </div>
+
+        <!-- Floating quote card (Nelson Mandela, do PDF do cliente) -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 bg-cream/95 backdrop-blur rounded-2xl px-6 py-5 shadow-2xl max-w-[260px] text-center z-10 border border-clay/10">
+          <span class="inline-flex mb-1"><svg width="28" height="32" viewBox="0 0 28 36"><use href="#mush-mini"/></svg></span>
+          <p class="font-display text-bark text-sm font-600 italic leading-snug">"A educação é a ferramenta mais poderosa que podemos usar para mudar o mundo."</p>
+          <p class="font-body text-clay text-[10px] tracking-widest uppercase mt-2 font-600">— Nelson Mandela</p>
         </div>
       </div>
 
@@ -854,19 +1110,19 @@
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div class="animate-in">
             <div class="bg-sage text-cream rounded-3xl p-8 lg:p-10 flex flex-col h-full min-h-[340px] hover:-translate-y-2 transition-transform duration-300">
-              <div class="flex items-start justify-between mb-auto"><span class="text-4xl">🏡</span><span class="font-display text-4xl font-700 italic opacity-20">I</span></div>
+              <div class="flex items-start justify-between mb-auto"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true"><path d="M5 18L18 6l13 12" stroke="rgba(253,248,242,0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 14.5V30h7v-7h4v7h7V14.5" stroke="rgba(253,248,242,0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 9h3v5" stroke="rgba(253,248,242,0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="font-display text-4xl font-700 italic opacity-20">I</span></div>
               <div class="mt-12"><h3 class="font-display text-2xl font-600 mb-3">Crescer na Aldeia</h3><p class="font-body text-sm leading-relaxed opacity-80">Em Tarei, Santa Maria da Feira. O meio rural traz sentimento de pertença e intergeracionalidade. Aprende-se vendo e experimentando — ver a vaca ser ordenhada, os legumes a brotar da terra.</p></div>
             </div>
           </div>
           <div class="animate-in" data-delay="80">
             <div class="bg-clay text-cream rounded-3xl p-8 lg:p-10 flex flex-col h-full min-h-[340px] hover:-translate-y-2 transition-transform duration-300">
-              <div class="flex items-start justify-between mb-auto"><span class="text-4xl">🤝</span><span class="font-display text-4xl font-700 italic opacity-20">II</span></div>
+              <div class="flex items-start justify-between mb-auto"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true"><path d="M4 22l5-5 4 2 5-5 5 2 5-5" stroke="rgba(253,248,242,0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 17l-4 4 6 6 4-4M23 19l4 4-6 6-4-4" stroke="rgba(253,248,242,0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="font-display text-4xl font-700 italic opacity-20">II</span></div>
               <div class="mt-12"><h3 class="font-display text-2xl font-600 mb-3">Pais como Parceiros</h3><p class="font-body text-sm leading-relaxed opacity-80">A continuidade entre a casa e o nosso espaço é essencial. Mantemos diálogo aberto e partilhamos feedbacks num ambiente seguro para a exposição de dúvidas e ansiedades.</p></div>
             </div>
           </div>
           <div class="animate-in" data-delay="160">
             <div class="bg-parchment text-bark rounded-3xl p-8 lg:p-10 flex flex-col h-full min-h-[340px] hover:-translate-y-2 transition-transform duration-300">
-              <div class="flex items-start justify-between mb-auto"><span class="text-4xl">🍼</span><span class="font-display text-4xl font-700 italic opacity-20">III</span></div>
+              <div class="flex items-start justify-between mb-auto"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true"><circle cx="18" cy="11" r="5" stroke="rgba(44,26,14,0.5)" stroke-width="2"/><path d="M8 30c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke="rgba(44,26,14,0.5)" stroke-width="2" stroke-linecap="round"/></svg><span class="font-display text-4xl font-700 italic opacity-20">III</span></div>
               <div class="mt-12"><h3 class="font-display text-2xl font-600 mb-3">Espaço para os Bebés</h3><p class="font-body text-sm leading-relaxed opacity-70">Parcerias com amas certificadas em regime livre e uma atividade semanal para bebés acompanhados pela ama ou cuidador, promovendo uma adaptação progressiva.</p></div>
             </div>
           </div>
@@ -925,22 +1181,22 @@
 
         <div class="columns-2 md:columns-3 gap-3">
           <div class="break-inside-avoid relative group cursor-zoom-in overflow-hidden rounded-2xl mb-3" data-src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=1400&q=80" data-label="Na floresta">
-            <div class="relative w-full aspect-[3/4]"><img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&q=80" alt="Criança na floresta" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /><div class="absolute inset-0 bg-bark/0 group-hover:bg-bark/30 transition-colors duration-300 flex items-end p-4"><span class="font-body text-cream text-sm font-600 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">Na floresta</span></div></div>
+            <div class="relative w-full aspect-[3/4]"><img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&q=80" alt="Criança na floresta" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /><div class="absolute inset-0 bg-bark/0 group-hover:bg-bark/30 transition-colors duration-300 flex items-end p-4"><span class="font-body text-cream text-sm font-600 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">Na floresta</span></div></div>
           </div>
           <div class="break-inside-avoid relative group cursor-zoom-in overflow-hidden rounded-2xl mb-3" data-src="https://images.unsplash.com/photo-1588075592446-265fd1e6e76f?w=1400&q=80" data-label="Brincadeira livre">
-            <div class="relative w-full aspect-square"><img src="https://images.unsplash.com/photo-1588075592446-265fd1e6e76f?w=800&q=80" alt="Crianças a brincar" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /><div class="absolute inset-0 bg-bark/0 group-hover:bg-bark/30 transition-colors duration-300 flex items-end p-4"><span class="font-body text-cream text-sm font-600 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">Brincadeira livre</span></div></div>
+            <div class="relative w-full aspect-square"><img src="https://images.unsplash.com/photo-1588075592446-265fd1e6e76f?w=800&q=80" alt="Crianças a brincar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /><div class="absolute inset-0 bg-bark/0 group-hover:bg-bark/30 transition-colors duration-300 flex items-end p-4"><span class="font-body text-cream text-sm font-600 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">Brincadeira livre</span></div></div>
           </div>
           <div class="break-inside-avoid relative group cursor-zoom-in overflow-hidden rounded-2xl mb-3" data-src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1400&q=80" data-label="Na horta">
-            <div class="relative w-full aspect-square"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80" alt="Horta biológica" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /><div class="absolute inset-0 bg-bark/0 group-hover:bg-bark/30 transition-colors duration-300 flex items-end p-4"><span class="font-body text-cream text-sm font-600 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">Na horta</span></div></div>
+            <div class="relative w-full aspect-square"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80" alt="Horta biológica" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /><div class="absolute inset-0 bg-bark/0 group-hover:bg-bark/30 transition-colors duration-300 flex items-end p-4"><span class="font-body text-cream text-sm font-600 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">Na horta</span></div></div>
           </div>
           <div class="break-inside-avoid relative group cursor-zoom-in overflow-hidden rounded-2xl mb-3" data-src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=1400&q=80" data-label="Em comunidade">
-            <div class="relative w-full aspect-[3/4]"><img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&q=80" alt="Comunidade" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /><div class="absolute inset-0 bg-bark/0 group-hover:bg-bark/30 transition-colors duration-300 flex items-end p-4"><span class="font-body text-cream text-sm font-600 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">Em comunidade</span></div></div>
+            <div class="relative w-full aspect-[3/4]"><img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&q=80" alt="Comunidade" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /><div class="absolute inset-0 bg-bark/0 group-hover:bg-bark/30 transition-colors duration-300 flex items-end p-4"><span class="font-body text-cream text-sm font-600 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">Em comunidade</span></div></div>
           </div>
           <div class="break-inside-avoid relative group cursor-zoom-in overflow-hidden rounded-2xl mb-3" data-src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=1400&q=80" data-label="Atelier">
-            <div class="relative w-full aspect-square"><img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80" alt="Atelier criativo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /><div class="absolute inset-0 bg-bark/0 group-hover:bg-bark/30 transition-colors duration-300 flex items-end p-4"><span class="font-body text-cream text-sm font-600 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">Atelier</span></div></div>
+            <div class="relative w-full aspect-square"><img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80" alt="Atelier criativo" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /><div class="absolute inset-0 bg-bark/0 group-hover:bg-bark/30 transition-colors duration-300 flex items-end p-4"><span class="font-body text-cream text-sm font-600 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">Atelier</span></div></div>
           </div>
           <div class="break-inside-avoid relative group cursor-zoom-in overflow-hidden rounded-2xl mb-3" data-src="https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1400&q=80" data-label="Exploração">
-            <div class="relative w-full aspect-square"><img src="https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800&q=80" alt="Exploração" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /><div class="absolute inset-0 bg-bark/0 group-hover:bg-bark/30 transition-colors duration-300 flex items-end p-4"><span class="font-body text-cream text-sm font-600 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">Exploração</span></div></div>
+            <div class="relative w-full aspect-square"><img src="https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800&q=80" alt="Exploração" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /><div class="absolute inset-0 bg-bark/0 group-hover:bg-bark/30 transition-colors duration-300 flex items-end p-4"><span class="font-body text-cream text-sm font-600 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">Exploração</span></div></div>
           </div>
         </div>
       </div>
@@ -956,7 +1212,7 @@
           <div class="animate-in">
             <div class="relative">
               <div class="relative rounded-3xl overflow-hidden aspect-[4/5]">
-                <img src="https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=700&q=85" alt="Família na natureza" class="absolute inset-0 w-full h-full object-cover" />
+                <img src="https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=700&q=85" alt="Família na natureza" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" />
               </div>
               <div class="absolute -bottom-6 -right-6 bg-clay rounded-2xl px-6 py-4 shadow-xl">
                 <p class="font-display text-cream text-3xl font-600 italic">∞</p>
@@ -971,10 +1227,59 @@
             </h2>
             <p class="font-body text-cream/60 text-lg leading-relaxed mb-10">Acreditamos que a nossa metodologia é capaz de educar crianças livres, guiadas pelo amor: pela natureza, pelos outros e por si próprias. Estes são os valores que cultivamos.</p>
             <div class="grid sm:grid-cols-2 gap-4">
-              <div class="bg-cream/5 border border-cream/10 rounded-2xl p-5 hover:bg-cream/10 transition-colors duration-300"><span class="text-2xl block mb-3">🤔</span><h4 class="font-body font-700 text-cream text-sm mb-2">Espírito crítico</h4><p class="font-body text-cream/50 text-xs leading-relaxed">A infância é a fase dos "porquês". Incitamos a curiosidade e o questionamento — é esse o foco da filosofia para crianças, metodologia que adotamos.</p></div>
-              <div class="bg-cream/5 border border-cream/10 rounded-2xl p-5 hover:bg-cream/10 transition-colors duration-300"><span class="text-2xl block mb-3">🦋</span><h4 class="font-body font-700 text-cream text-sm mb-2">Autonomia</h4><p class="font-body text-cream/50 text-xs leading-relaxed">Fazer sozinho, tentar, errar, tentar de novo. A autonomia na infância alimenta a autoconfiança e o sentido de independência.</p></div>
-              <div class="bg-cream/5 border border-cream/10 rounded-2xl p-5 hover:bg-cream/10 transition-colors duration-300"><span class="text-2xl block mb-3">🎨</span><h4 class="font-body font-700 text-cream text-sm mb-2">Criatividade</h4><p class="font-body text-cream/50 text-xs leading-relaxed">Através das artes e do jogo livre, fomentamos a capacidade de encontrar soluções fora da caixa e a plasticidade para nos adaptarmos.</p></div>
-              <div class="bg-cream/5 border border-cream/10 rounded-2xl p-5 hover:bg-cream/10 transition-colors duration-300"><span class="text-2xl block mb-3">💛</span><h4 class="font-body font-700 text-cream text-sm mb-2">Valorização das emoções</h4><p class="font-body text-cream/50 text-xs leading-relaxed">A educação não é só razão — é também aprender a lidar com as emoções. Procuramos cultivar empatia, solidariedade e consciência de comunidade.</p></div>
+              <!-- Espírito crítico -->
+              <div class="bg-cream/5 border border-cream/10 rounded-2xl p-5 hover:bg-cream/10 transition-colors duration-300">
+                <div class="mb-3">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <circle cx="12" cy="12" r="8.5" stroke="#C4714A" stroke-width="1.6"/>
+                    <path d="M18.5 18.5L24 24" stroke="#C4714A" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M12 8.5v4" stroke="#C4714A" stroke-width="1.6" stroke-linecap="round"/>
+                    <circle cx="12" cy="15.5" r="0.9" fill="#C4714A"/>
+                  </svg>
+                </div>
+                <h4 class="font-body font-700 text-cream text-sm mb-2">Espírito crítico</h4>
+                <p class="font-body text-cream/50 text-xs leading-relaxed">A infância é a fase dos "porquês". Incitamos a curiosidade e o questionamento — é esse o foco da filosofia para crianças, metodologia que adotamos.</p>
+              </div>
+              <!-- Autonomia -->
+              <div class="bg-cream/5 border border-cream/10 rounded-2xl p-5 hover:bg-cream/10 transition-colors duration-300">
+                <div class="mb-3">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <circle cx="14" cy="14" r="10.5" stroke="#C4714A" stroke-width="1.6"/>
+                    <circle cx="14" cy="14" r="2" fill="#C4714A"/>
+                    <line x1="14" y1="3.5" x2="14" y2="7" stroke="#C4714A" stroke-width="1.6" stroke-linecap="round"/>
+                    <line x1="14" y1="21" x2="14" y2="24.5" stroke="#C4714A" stroke-width="1.6" stroke-linecap="round"/>
+                    <line x1="24.5" y1="14" x2="21" y2="14" stroke="#C4714A" stroke-width="1.6" stroke-linecap="round"/>
+                    <line x1="7" y1="14" x2="3.5" y2="14" stroke="#C4714A" stroke-width="1.6" stroke-linecap="round"/>
+                    <line x1="14" y1="14" x2="18" y2="9" stroke="#C4714A" stroke-width="1.4" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <h4 class="font-body font-700 text-cream text-sm mb-2">Autonomia</h4>
+                <p class="font-body text-cream/50 text-xs leading-relaxed">Fazer sozinho, tentar, errar, tentar de novo. A autonomia na infância alimenta a autoconfiança e o sentido de independência.</p>
+              </div>
+              <!-- Criatividade -->
+              <div class="bg-cream/5 border border-cream/10 rounded-2xl p-5 hover:bg-cream/10 transition-colors duration-300">
+                <div class="mb-3">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M7 21l3-3 10.5-10.5a2.12 2.12 0 0 0-3-3L7 15l-1 4 1-0z" stroke="#C4714A" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path d="M6 22l3-3" stroke="#C4714A" stroke-width="1.6" stroke-linecap="round"/>
+                    <circle cx="21.5" cy="6.5" r="2" stroke="#C4714A" stroke-width="1.4"/>
+                    <path d="M10 10l8 8" stroke="#C4714A" stroke-width="1.2" stroke-linecap="round" opacity="0.45"/>
+                  </svg>
+                </div>
+                <h4 class="font-body font-700 text-cream text-sm mb-2">Criatividade</h4>
+                <p class="font-body text-cream/50 text-xs leading-relaxed">Através das artes e do jogo livre, fomentamos a capacidade de encontrar soluções fora da caixa e a plasticidade para nos adaptarmos.</p>
+              </div>
+              <!-- Valorização das emoções -->
+              <div class="bg-cream/5 border border-cream/10 rounded-2xl p-5 hover:bg-cream/10 transition-colors duration-300">
+                <div class="mb-3">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M14 22.5S4.5 17 4.5 10.5a5.5 5.5 0 0 1 9.5-3.75A5.5 5.5 0 0 1 23.5 10.5C23.5 17 14 22.5 14 22.5z" stroke="#C4714A" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path d="M10.5 10.5c0-1 .8-2 2-2" stroke="#C4714A" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+                  </svg>
+                </div>
+                <h4 class="font-body font-700 text-cream text-sm mb-2">Valorização das emoções</h4>
+                <p class="font-body text-cream/50 text-xs leading-relaxed">A educação não é só razão — é também aprender a lidar com as emoções. Procuramos cultivar empatia, solidariedade e consciência de comunidade.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -990,7 +1295,7 @@
             Palavras que<br><em class="text-clay font-400">nos enchem o coração</em>
           </h2>
         </div>
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="grid lg:grid-cols-3 gap-6">
           <div class="animate-in">
             <div class="bg-cream rounded-3xl p-8 lg:p-10 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow duration-300">
               <div class="flex gap-0.5 mb-6">
@@ -1031,101 +1336,6 @@
       </div>
     </section>
 
-    <!-- PREÇOS -->
-    <section id="precos" class="bg-cream py-28 lg:py-36 border-t border-sand/40">
-      <div class="max-w-7xl mx-auto px-6 lg:px-12">
-        <div class="animate-in mb-16 lg:mb-20 text-center">
-          <span class="inline-block font-body text-[11px] font-700 tracking-[0.2em] uppercase text-clay bg-clay/10 px-3 py-1.5 rounded-full mb-5">Horários & Preços</span>
-          <h2 class="font-display text-[clamp(2.2rem,4vw,3.5rem)] font-600 leading-[1.1] text-bark">
-            Transparência<br><em class="text-clay font-400">desde o primeiro dia</em>
-          </h2>
-          <p class="font-body text-bark/60 text-base leading-relaxed mt-5 max-w-2xl mx-auto">Ano letivo de <strong class="text-bark font-600">9 de setembro a 31 de julho</strong>. Pormenores sobre interrupções constam do Regulamento Interno.</p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-6 items-stretch max-w-5xl mx-auto">
-          <!-- Tempo Parcial -->
-          <div class="animate-in">
-            <div class="bg-parchment rounded-3xl p-8 lg:p-10 h-full flex flex-col border-t-4 border-sage hover:-translate-y-2 transition-transform duration-300 shadow-sm">
-              <p class="font-body text-[11px] font-700 tracking-[0.2em] uppercase text-sage mb-2">Tempo Parcial</p>
-              <h3 class="font-display text-2xl font-600 text-bark mb-1">Manhã ou tarde</h3>
-              <p class="font-body text-bark/50 text-sm italic mb-6">3 horas diárias</p>
-              <div class="flex items-baseline gap-1 mb-1">
-                <span class="font-display text-5xl font-700 text-sage">220€</span>
-              </div>
-              <p class="font-body text-bark/50 text-xs uppercase tracking-wide mb-6">por mês</p>
-              <ul class="flex flex-col gap-3 mt-auto pt-6 border-t border-sand">
-                <li class="flex gap-2 font-body text-sm text-bark/70"><span class="text-sage">✓</span>Manhã: 09h00 – 12h00</li>
-                <li class="flex gap-2 font-body text-sm text-bark/70"><span class="text-sage">✓</span>Tarde: 14h30 – 17h30</li>
-                <li class="flex gap-2 font-body text-sm text-bark/70"><span class="text-sage">✓</span>A partir da aquisição de marcha</li>
-                <li class="flex gap-2 font-body text-sm text-bark/70"><span class="text-sage">✓</span>Alimentação trazida de casa</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Tempo Total (destaque) -->
-          <div class="animate-in md:-translate-y-4" data-delay="100">
-            <div class="bg-bark text-cream rounded-3xl p-8 lg:p-10 h-full flex flex-col border-t-4 border-clay hover:-translate-y-6 md:hover:-translate-y-6 transition-transform duration-300 shadow-xl relative">
-              <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-clay text-cream font-body text-[10px] font-700 tracking-[0.2em] uppercase px-3 py-1.5 rounded-full shadow-md">Mais escolhido</span>
-              <p class="font-body text-[11px] font-700 tracking-[0.2em] uppercase text-clay mb-2">Tempo Total</p>
-              <h3 class="font-display text-2xl font-600 text-cream mb-1">Dia inteiro</h3>
-              <p class="font-body text-cream/50 text-sm italic mb-6">8h30m diárias</p>
-              <div class="flex items-baseline gap-1 mb-1">
-                <span class="font-display text-5xl font-700 text-clay">320€</span>
-              </div>
-              <p class="font-body text-cream/50 text-xs uppercase tracking-wide mb-6">por mês</p>
-              <ul class="flex flex-col gap-3 mt-auto pt-6 border-t border-cream/10">
-                <li class="flex gap-2 font-body text-sm text-cream/70"><span class="text-clay">✓</span>Horário: 09h00 – 17h30</li>
-                <li class="flex gap-2 font-body text-sm text-cream/70"><span class="text-clay">✓</span>A partir da aquisição de marcha</li>
-                <li class="flex gap-2 font-body text-sm text-cream/70"><span class="text-clay">✓</span>Lanches e almoço trazidos de casa</li>
-                <li class="flex gap-2 font-body text-sm text-cream/70"><span class="text-clay">✓</span>Frigorífico e micro-ondas disponíveis</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Bebés Acompanhados -->
-          <div class="animate-in" data-delay="200">
-            <div class="bg-parchment rounded-3xl p-8 lg:p-10 h-full flex flex-col border-t-4 border-sun hover:-translate-y-2 transition-transform duration-300 shadow-sm">
-              <p class="font-body text-[11px] font-700 tracking-[0.2em] uppercase text-sun mb-2">Bebés Acompanhados</p>
-              <h3 class="font-display text-2xl font-600 text-bark mb-1">Sextas-feiras</h3>
-              <p class="font-body text-bark/50 text-sm italic mb-6">10h00 – 11h30 · 1h30</p>
-              <div class="flex items-baseline gap-1 mb-1">
-                <span class="font-display text-5xl font-700 text-sun">15€</span>
-              </div>
-              <p class="font-body text-bark/50 text-xs uppercase tracking-wide mb-6">por sessão</p>
-              <ul class="flex flex-col gap-3 mt-auto pt-6 border-t border-sand">
-                <li class="flex gap-2 font-body text-sm text-bark/70"><span class="text-sun">✓</span>4 sessões: <strong class="text-bark">48€</strong></li>
-                <li class="flex gap-2 font-body text-sm text-bark/70"><span class="text-sun">✓</span>10 sessões: <strong class="text-bark">100€</strong></li>
-                <li class="flex gap-2 font-body text-sm text-bark/70"><span class="text-sun">✓</span>Bebés que ainda não andam</li>
-                <li class="flex gap-2 font-body text-sm text-bark/70"><span class="text-sun">✓</span>Acompanhados por ama ou cuidador</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Notas -->
-        <div class="animate-in max-w-4xl mx-auto mt-16 grid md:grid-cols-2 gap-4" data-delay="150">
-          <div class="bg-sage/10 border-l-4 border-sage rounded-2xl p-6">
-            <div class="flex items-start gap-3">
-              <span class="text-2xl shrink-0">🍱</span>
-              <div>
-                <h4 class="font-body font-700 text-bark text-sm mb-2">Alimentação</h4>
-                <p class="font-body text-bark/60 text-sm leading-relaxed">Lanches e almoço deverão ser trazidos de casa. Em situações específicas, poderemos confecionar comida com as crianças com intuito pedagógico — serão avisados atempadamente.</p>
-              </div>
-            </div>
-          </div>
-          <div class="bg-clay/10 border-l-4 border-clay rounded-2xl p-6">
-            <div class="flex items-start gap-3">
-              <span class="text-2xl shrink-0">📝</span>
-              <div>
-                <h4 class="font-body font-700 text-bark text-sm mb-2">Inscrição</h4>
-                <p class="font-body text-bark/60 text-sm leading-relaxed"><strong class="text-bark">100€ por criança</strong> (seguro incluído). Pagamento único no momento da inscrição.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- INSCRICOES -->
     <section id="inscricoes" class="bg-parchment py-28 lg:py-36 border-t border-sand/40">
       <div class="max-w-7xl mx-auto px-6 lg:px-12">
@@ -1138,15 +1348,27 @@
         <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           <div class="animate-in">
             <div class="relative rounded-3xl overflow-hidden aspect-[4/3] mb-8">
-              <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=900&q=80" alt="Campo verde" class="absolute inset-0 w-full h-full object-cover" />
+              <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=900&q=80" alt="Campo verde" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" />
               <div class="absolute inset-0 bg-gradient-to-t from-bark/60 to-transparent"></div>
               <p class="absolute bottom-6 left-6 right-6 font-display text-cream text-2xl italic font-400 leading-snug">"Tens perguntas? Recebemos todas as famílias com uma visita ao espaço."</p>
             </div>
             <div class="grid grid-cols-2 gap-3">
-              <div class="bg-cream rounded-2xl p-5"><span class="text-2xl block mb-2">📍</span><p class="font-body text-[10px] font-700 tracking-widest uppercase text-clay mb-1">Localização</p><p class="font-body text-bark text-sm font-500 leading-snug">Rua Leiras do Monte<br>Tarei · 4520-719</p><p class="font-body text-bark/40 text-xs mt-1">Santa Maria da Feira</p></div>
-              <div class="bg-cream rounded-2xl p-5"><span class="text-2xl block mb-2">👶</span><p class="font-body text-[10px] font-700 tracking-widest uppercase text-clay mb-1">Idades</p><p class="font-body text-bark text-sm font-500">A partir da marcha</p><p class="font-body text-bark/40 text-xs italic">(bebés às sextas)</p></div>
-              <div class="bg-cream rounded-2xl p-5"><span class="text-2xl block mb-2">🕗</span><p class="font-body text-[10px] font-700 tracking-widest uppercase text-clay mb-1">Horário</p><p class="font-body text-bark text-sm font-500">09h00 – 17h30</p><p class="font-body text-bark/40 text-xs italic">(parcial ou total)</p></div>
-              <div class="bg-cream rounded-2xl p-5"><span class="text-2xl block mb-2">📅</span><p class="font-body text-[10px] font-700 tracking-widest uppercase text-clay mb-1">Ano letivo</p><p class="font-body text-bark text-sm font-500">9 set. – 31 jul.</p></div>
+              <div class="bg-cream rounded-2xl p-5">
+                <svg class="mb-2 text-clay" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
+                <p class="font-body text-[10px] font-700 tracking-widest uppercase text-clay mb-1">Localização</p><p class="font-body text-bark text-sm font-500 leading-snug">Rua Leiras do Monte<br>Tarei · 4520-719</p><p class="font-body text-bark/40 text-xs mt-1">Santa Maria da Feira</p>
+              </div>
+              <div class="bg-cream rounded-2xl p-5">
+                <svg class="mb-2 text-clay" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="7.5" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M5.5 20c.8-4 3.1-6 6.5-6s5.7 2 6.5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M9.8 8.2h.01M14.2 8.2h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+                <p class="font-body text-[10px] font-700 tracking-widest uppercase text-clay mb-1">Idades</p><p class="font-body text-bark text-sm font-500">A partir da marcha</p><p class="font-body text-bark/40 text-xs italic">(bebés às sextas)</p>
+              </div>
+              <div class="bg-cream rounded-2xl p-5">
+                <svg class="mb-2 text-clay" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <p class="font-body text-[10px] font-700 tracking-widest uppercase text-clay mb-1">Horário</p><p class="font-body text-bark text-sm font-500">09h00 – 17h30</p><p class="font-body text-bark/40 text-xs italic">(parcial ou total)</p>
+              </div>
+              <div class="bg-cream rounded-2xl p-5">
+                <svg class="mb-2 text-clay" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 3v4M16 3v4M4 10h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                <p class="font-body text-[10px] font-700 tracking-widest uppercase text-clay mb-1">Ano letivo</p><p class="font-body text-bark text-sm font-500">9 set. – 31 jul.</p>
+              </div>
             </div>
           </div>
 
@@ -1156,22 +1378,22 @@
                 <h3 class="font-display text-2xl font-600 text-bark text-center mb-2">Entrar na Lista de Espera</h3>
                 <div class="grid sm:grid-cols-2 gap-4">
                   <div class="flex flex-col gap-1.5">
-                    <label class="font-body text-xs font-700 text-bark/70 tracking-wide uppercase">Nome dos pais *</label>
-                    <input name="nome" type="text" required placeholder="O vosso nome" class="font-body bg-parchment border-2 border-sand rounded-xl px-4 py-3 text-sm text-bark focus:border-clay focus:outline-none transition-colors" style="--tw-placeholder-color: rgba(44,26,14,0.3)" />
+                    <label for="nome" class="font-body text-xs font-700 text-bark/70 tracking-wide uppercase">Nome dos pais *</label>
+                    <input id="nome" name="nome" type="text" autocomplete="name" required placeholder="O vosso nome" class="font-body bg-parchment border-2 border-sand rounded-xl px-4 py-3 text-sm text-bark focus:border-clay focus:outline-none transition-colors" style="--tw-placeholder-color: rgba(44,26,14,0.3)" />
                   </div>
                   <div class="flex flex-col gap-1.5">
-                    <label class="font-body text-xs font-700 text-bark/70 tracking-wide uppercase">Email *</label>
-                    <input name="email" type="email" required placeholder="email@exemplo.pt" class="font-body bg-parchment border-2 border-sand rounded-xl px-4 py-3 text-sm text-bark focus:border-clay focus:outline-none transition-colors" />
+                    <label for="email" class="font-body text-xs font-700 text-bark/70 tracking-wide uppercase">Email *</label>
+                    <input id="email" name="email" type="email" autocomplete="email" required placeholder="email@exemplo.pt" class="font-body bg-parchment border-2 border-sand rounded-xl px-4 py-3 text-sm text-bark focus:border-clay focus:outline-none transition-colors" />
                   </div>
                 </div>
                 <div class="grid sm:grid-cols-2 gap-4">
                   <div class="flex flex-col gap-1.5">
-                    <label class="font-body text-xs font-700 text-bark/70 tracking-wide uppercase">Telefone</label>
-                    <input name="telefone" type="tel" placeholder="9XX XXX XXX" class="font-body bg-parchment border-2 border-sand rounded-xl px-4 py-3 text-sm text-bark focus:border-clay focus:outline-none transition-colors" />
+                    <label for="telefone" class="font-body text-xs font-700 text-bark/70 tracking-wide uppercase">Telefone</label>
+                    <input id="telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="9XX XXX XXX" class="font-body bg-parchment border-2 border-sand rounded-xl px-4 py-3 text-sm text-bark focus:border-clay focus:outline-none transition-colors" />
                   </div>
                   <div class="flex flex-col gap-1.5">
-                    <label class="font-body text-xs font-700 text-bark/70 tracking-wide uppercase">Idade da criança *</label>
-                    <select name="crianca" required class="font-body bg-parchment border-2 border-sand rounded-xl px-4 py-3 text-sm text-bark focus:border-clay focus:outline-none transition-colors appearance-none">
+                    <label for="crianca" class="font-body text-xs font-700 text-bark/70 tracking-wide uppercase">Idade da criança *</label>
+                    <select id="crianca" name="crianca" required class="font-body bg-parchment border-2 border-sand rounded-xl px-4 py-3 text-sm text-bark focus:border-clay focus:outline-none transition-colors appearance-none">
                       <option value="" disabled selected>Faixa etária</option>
                       <option value="bebe">Bebé (ainda não anda)</option>
                       <option value="1-2">1–2 anos</option>
@@ -1183,8 +1405,8 @@
                   </div>
                 </div>
                 <div class="flex flex-col gap-1.5">
-                  <label class="font-body text-xs font-700 text-bark/70 tracking-wide uppercase">Modalidade pretendida</label>
-                  <select name="modalidade" class="font-body bg-parchment border-2 border-sand rounded-xl px-4 py-3 text-sm text-bark focus:border-clay focus:outline-none transition-colors appearance-none">
+                  <label for="modalidade" class="font-body text-xs font-700 text-bark/70 tracking-wide uppercase">Modalidade pretendida</label>
+                  <select id="modalidade" name="modalidade" class="font-body bg-parchment border-2 border-sand rounded-xl px-4 py-3 text-sm text-bark focus:border-clay focus:outline-none transition-colors appearance-none">
                     <option value="" disabled selected>Seleciona uma opção</option>
                     <option value="total">Tempo Total (09h00–17h30) · 320€/mês</option>
                     <option value="parcial-manha">Parcial Manhã (09h00–12h00) · 220€/mês</option>
@@ -1194,18 +1416,18 @@
                   </select>
                 </div>
                 <div class="flex flex-col gap-1.5">
-                  <label class="font-body text-xs font-700 text-bark/70 tracking-wide uppercase">Mensagem ou perguntas</label>
-                  <textarea name="mensagem" rows="4" placeholder="Conta-nos um pouco sobre a vossa família e o que procuram..." class="font-body bg-parchment border-2 border-sand rounded-xl px-4 py-3 text-sm text-bark focus:border-clay focus:outline-none transition-colors resize-none"></textarea>
+                  <label for="mensagem" class="font-body text-xs font-700 text-bark/70 tracking-wide uppercase">Mensagem ou perguntas</label>
+                  <textarea id="mensagem" name="mensagem" rows="4" placeholder="Conta-nos um pouco sobre a vossa família e o que procuram..." class="font-body bg-parchment border-2 border-sand rounded-xl px-4 py-3 text-sm text-bark focus:border-clay focus:outline-none transition-colors resize-none"></textarea>
                 </div>
                 <button id="submit-btn" type="submit" class="group w-full bg-clay text-cream font-body font-700 text-sm py-4 rounded-xl hover:bg-clay-dark hover:shadow-[0_8px_24px_rgba(196,113,74,0.35)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all duration-200">
-                  Entrar na Lista de Espera 🌱
+                  Entrar na Lista de Espera
                 </button>
                 <p class="font-body text-center text-xs text-bark/40">Os vossos dados são usados exclusivamente para responder ao vosso pedido.</p>
               </form>
-              <div id="form-success" class="hidden text-center py-12">
-                <span class="text-6xl block mb-4">🌱</span>
-                <h3 class="font-display text-2xl font-600 text-bark mb-2">Estão na lista de espera!</h3>
-                <p class="font-body text-bark/60">Entraremos em contacto brevemente com mais informações.</p>
+              <div id="form-success" class="hidden text-center py-12" aria-live="polite">
+                <span class="inline-flex mb-4"><svg width="48" height="58" viewBox="0 0 28 36" aria-hidden="true"><use href="#mush-mini"/></svg></span>
+                <h3 class="font-display text-2xl font-600 text-bark mb-2">Pedido preparado.</h3>
+                <p class="font-body text-bark/60">Abrimos uma mensagem de email com os dados da vossa família.</p>
               </div>
             </div>
           </div>
@@ -1244,17 +1466,16 @@
             <li><a href="#dia"        class="font-body text-sm text-cream/50 hover:text-cream transition-colors">O Nosso Dia</a></li>
             <li><a href="#galeria"    class="font-body text-sm text-cream/50 hover:text-cream transition-colors">Galeria</a></li>
             <li><a href="#pais"       class="font-body text-sm text-cream/50 hover:text-cream transition-colors">Valores</a></li>
-            <li><a href="#precos"     class="font-body text-sm text-cream/50 hover:text-cream transition-colors">Horários & Preços</a></li>
             <li><a href="#inscricoes" class="font-body text-sm text-cream/50 hover:text-cream transition-colors">Inscrições</a></li>
           </ul>
         </div>
         <div>
           <h5 class="font-body text-[10px] font-800 tracking-[0.15em] uppercase text-sage-light mb-5">Contacto</h5>
           <div class="flex flex-col gap-3 font-body text-sm text-cream/50">
-            <p>📍 Rua Leiras do Monte<br>Tarei · 4520-719<br><span class="text-cream/30 text-xs">Santa Maria da Feira, Portugal</span></p>
-            <p>📅 Ano letivo: 9 set. – 31 jul.</p>
-            <p>🕗 09h00 – 17h30</p>
-            <p>📧 <a href="mailto:geral@sercrescernaldeia.pt" class="hover:text-cream transition-colors">geral@sercrescernaldeia.pt</a></p>
+            <p><strong class="text-cream/70 font-700">Morada</strong><br>Rua Leiras do Monte<br>Tarei · 4520-719<br><span class="text-cream/30 text-xs">Santa Maria da Feira, Portugal</span></p>
+            <p><strong class="text-cream/70 font-700">Ano letivo</strong><br>9 set. – 31 jul.</p>
+            <p><strong class="text-cream/70 font-700">Horário</strong><br>09h00 – 17h30</p>
+            <p><strong class="text-cream/70 font-700">Email</strong><br><a href="mailto:geral@sercrescernaldeia.pt" class="hover:text-cream transition-colors">geral@sercrescernaldeia.pt</a></p>
             <p class="flex gap-3 pt-1">
               <a href="https://www.instagram.com/ser.crescernaldeia/" target="_blank" rel="noopener" class="hover:text-cream transition-colors">@ser.crescernaldeia</a>
             </p>
@@ -1263,14 +1484,14 @@
       </div>
     </div>
     <div class="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-      <p class="font-body text-xs text-cream/30">© 2024 SER – Crescer na Aldeia. Todos os direitos reservados.</p>
+      <p class="font-body text-xs text-cream/30">© 2026 SER – Crescer na Aldeia. Todos os direitos reservados.</p>
       <p class="font-body text-xs text-cream/30 flex items-center gap-1">Desenvolvido com <span class="inline-block w-3.5 h-4 align-middle"><svg width="14" height="16" viewBox="0 0 28 36" aria-hidden="true"><use href="#mush-mini"/></svg></span> por <a href="https://novasinapse.pt" target="_blank" rel="noopener" class="text-sage-light hover:text-cream transition-colors">Nova Sinapse</a></p>
     </div>
   </footer>
 
   <!-- LIGHTBOX -->
-  <div id="lightbox">
-    <button id="lightbox-close" style="position:absolute;top:1.5rem;right:1.5rem" class="text-cream/70 hover:text-cream text-2xl w-10 h-10 flex items-center justify-center">✕</button>
+  <div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button id="lightbox-close" type="button" aria-label="Fechar galeria" style="position:absolute;top:1.5rem;right:1.5rem" class="text-cream/70 hover:text-cream text-2xl w-10 h-10 flex items-center justify-center">×</button>
     <div style="max-height:80vh;width:100%;max-width:56rem">
       <img id="lightbox-img" src="" alt="" style="width:100%;height:auto;max-height:80vh;object-fit:contain;border-radius:1rem" />
     </div>
@@ -1288,57 +1509,106 @@
     const burgerBtn = document.getElementById('burger-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     let menuOpen = false;
-    burgerBtn.addEventListener('click', () => {
-      menuOpen = !menuOpen;
-      burgerBtn.setAttribute('aria-expanded', menuOpen);
+    function setMenu(open) {
+      menuOpen = open;
+      burgerBtn.setAttribute('aria-expanded', String(menuOpen));
       burgerBtn.classList.toggle('menu-open', menuOpen);
       mobileMenu.classList.toggle('open', menuOpen);
+    }
+    burgerBtn.addEventListener('click', () => {
+      setMenu(!menuOpen);
     });
     document.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => {
-        menuOpen = false;
-        burgerBtn.setAttribute('aria-expanded', false);
-        burgerBtn.classList.remove('menu-open');
-        mobileMenu.classList.remove('open');
-      });
+      link.addEventListener('click', () => setMenu(false));
     });
 
     // Animate-in (IntersectionObserver)
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const delay = parseInt(el.dataset.delay || '0', 10);
-        setTimeout(() => el.classList.add('visible'), delay);
-        io.unobserve(el);
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
-    document.querySelectorAll('.animate-in').forEach(el => io.observe(el));
+    const animatedItems = document.querySelectorAll('.animate-in');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      animatedItems.forEach(el => el.classList.add('visible'));
+    } else {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const delay = parseInt(el.dataset.delay || '0', 10);
+          setTimeout(() => el.classList.add('visible'), delay);
+          io.unobserve(el);
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+      animatedItems.forEach(el => io.observe(el));
+    }
 
     // Gallery lightbox
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxLabel = document.getElementById('lightbox-label');
+    const lightboxClose = document.getElementById('lightbox-close');
+    function openLightbox(el) {
+      lightboxImg.src = el.dataset.src;
+      lightboxImg.alt = el.dataset.label;
+      lightboxLabel.textContent = el.dataset.label;
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      lightboxClose.focus({ preventScroll: true });
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lightboxImg.removeAttribute('src');
+      lightboxImg.alt = '';
+      lightboxLabel.textContent = '';
+    }
     document.querySelectorAll('[data-src]').forEach(el => {
-      el.addEventListener('click', () => {
-        lightboxImg.src = el.dataset.src;
-        lightboxImg.alt = el.dataset.label;
-        lightboxLabel.textContent = el.dataset.label;
-        lightbox.classList.add('open');
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('aria-label', `Abrir imagem: ${el.dataset.label}`);
+      el.addEventListener('click', () => openLightbox(el));
+      el.addEventListener('keydown', e => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        e.preventDefault();
+        openLightbox(el);
       });
     });
-    document.getElementById('lightbox-close').addEventListener('click', () => lightbox.classList.remove('open'));
-    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      if (menuOpen) setMenu(false);
+      if (lightbox.classList.contains('open')) closeLightbox();
+    });
 
     // Contact form
     const form = document.getElementById('contact-form');
     const formSuccess = document.getElementById('form-success');
     const submitBtn = document.getElementById('submit-btn');
-    form.addEventListener('submit', async e => {
+    form.addEventListener('submit', e => {
       e.preventDefault();
       submitBtn.disabled = true;
-      submitBtn.textContent = 'A enviar...';
-      await new Promise(r => setTimeout(r, 1400));
+      submitBtn.textContent = 'A abrir email...';
+
+      const data = new FormData(form);
+      const ageLabel = form.elements.crianca.selectedOptions[0]?.textContent || data.get('crianca') || '';
+      const modalityLabel = form.elements.modalidade.selectedOptions[0]?.textContent || data.get('modalidade') || 'Ainda não indicado';
+      const body = [
+        'Olá SER,',
+        '',
+        'Gostávamos de entrar na lista de espera.',
+        '',
+        `Nome dos pais: ${data.get('nome') || ''}`,
+        `Email: ${data.get('email') || ''}`,
+        `Telefone: ${data.get('telefone') || ''}`,
+        `Idade da criança: ${ageLabel}`,
+        `Modalidade pretendida: ${modalityLabel}`,
+        '',
+        'Mensagem:',
+        data.get('mensagem') || ''
+      ].join('\n');
+
+      const subject = encodeURIComponent('Pedido de lista de espera · SER');
+      window.location.href = `mailto:geral@sercrescernaldeia.pt?subject=${subject}&body=${encodeURIComponent(body)}`;
       form.style.display = 'none';
       formSuccess.classList.remove('hidden');
     });
